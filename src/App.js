@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-
-import './App.css';
+import React, { Component } from "react";
+import Authentication from "./components/Authentication";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-     <h1> hello</h1>
+        <Authentication />
       </div>
     );
   }
