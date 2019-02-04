@@ -1,0 +1,15 @@
+.prison-form-wrapper {
+  display: grid;
+  justify-items: center;
+  margin-top: 5%;
+}
+
+.prison-fab-wrapper {
+  display: inline-grid;
+  grid-template-columns: 0.35fr 1fr;
+  justify-items: center;
+}
+
+.prison-fab-button {
+  justify-content: flex-end;
+}

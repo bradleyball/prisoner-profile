@@ -42,10 +42,11 @@ function SignIn() {
     }
     setEmail("");
     setPassword("");
+    handleClose();
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
       <Button color="inherit" onClick={handleClickOpen}>
         Login
       </Button>
@@ -54,45 +55,49 @@ function SignIn() {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Login To Your Account</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChanges}
-            fullWidth
-          />
-          <TextField
-            margin="dense"
-            id="name"
-            label="Password"
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChanges}
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button
-            onClick={handleClose}
-            color="primary"
-            type="submit"
-            value="Sign In"
-          >
-            Login
-          </Button>
-        </DialogActions>
+        <form onSubmit={handleSubmit}>
+          <DialogTitle id="form-dialog-title">
+            Login To Your Account
+          </DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Email Address"
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleChanges}
+              fullWidth
+            />
+            <TextField
+              margin="dense"
+              id="name"
+              label="Password"
+              type="password"
+              name="password"
+              value={password}
+              onChange={handleChanges}
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button
+              color="primary"
+              type="submit"
+              value="Sign In"
+              onSubmit={handleSubmit}
+            >
+              Login
+            </Button>
+          </DialogActions>{" "}
+        </form>
       </Dialog>
-    </form>
+    </div>
   );
 }
 

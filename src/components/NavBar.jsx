@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles, withTheme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+import PersonIcon from "@material-ui/icons/Person";
+import HomeIcon from "@material-ui/icons/Home";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import { UserContext } from "../providers/UserProvider";
+import { signOut } from "../firebase";
+import Button from "@material-ui/core/Button";
 
 const styles = {
   root: {
@@ -24,6 +28,7 @@ const styles = {
 
 function NoUserNavBar(props) {
   const { classes } = props;
+  const user = useContext(UserContext);
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -33,13 +38,19 @@ function NoUserNavBar(props) {
             color="inherit"
             aria-label="Menu"
           >
-            <MenuIcon />
+            <HomeIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>
-            Prisoner Skills
+            {user ? `Welcome ${user.displayName}` : "Prisoner Skills"}
           </Typography>
-          <SignIn />
-          <SignUp />
+          {!user && <SignIn />} {console.log(user)}
+          {!user && <SignUp />}
+          {user && (
+            <Button color="inherit" onClick={signOut}>
+              Sign Out
+            </Button>
+          )}
+          {user && <PersonIcon />}
         </Toolbar>
       </AppBar>
     </div>

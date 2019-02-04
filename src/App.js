@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import Authentication from "./components/Authentication";
+import NavBar from "./components/NavBar";
+import PrisonDialogForm from "./components/PrisonDialogForm";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Authentication />
+        <NavBar />
+        <PrisonDialogForm />
       </div>
     );
   }
