@@ -43,7 +43,7 @@ function NoUserNavBar(props) {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             {user ? `Welcome ${user.displayName}` : "Prisoner Skills"}
           </Typography>
-          {!user && <SignIn />} {console.log(user)}
+          {!user && <SignIn />}
           {!user && <SignUp />}
           {user && (
             <Button color="inherit" onClick={signOut}>

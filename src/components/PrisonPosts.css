@@ -1,0 +1,40 @@
+.card-container {
+  display: grid;
+}
+
+#prison-post-header {
+  color: white;
+  background: #3f51b5;
+  margin: 0px;
+}
+
+#prison-post-header div span {
+  color: white;
+  font-size: 2rem;
+}
+
+.mid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.view-profile-container {
+  justify-self: end;
+  display: grid;
+  justify-items: center;
+}
+
+.address-container {
+  margin-top: 20px;
+}
+
+.available-workers {
+  margin-top: 20px;
+}
+
+.available-workers p {
+  color: red;
+  font-size: 1rem;
+}
+.space {
+  margin-top: 10px;
+}
