@@ -84,6 +84,19 @@ function PrisonPost(props) {
     }
   };
 
+  const handleFormClose = () => {
+    setEditing(false);
+    props.setEditing2(false);
+    setPrisonName("");
+    setStreet("");
+    setCity("");
+    setPState("");
+    setZip("");
+    setContactName("");
+    setPhoneNumber("");
+    setContactEmail("");
+  };
+
   const handlePrisonSubmit = event => {
     event.preventDefault();
 
@@ -92,6 +105,7 @@ function PrisonPost(props) {
       prisonAddress: { street, pState, zip, city },
       prisonContact: { phoneNumber, contactEmail, contactName }
     });
+
     setEditing(!editing);
     props.setEditing2(!editing);
   };
@@ -142,16 +156,6 @@ function PrisonPost(props) {
     margin-top: 30px;
   `;
 
-  const log = () =>
-    firestore.collection("posts").doc("") === "aahfCncQKMvDD7w6slaO"
-      ? console.log(true)
-      : console.log(false);
-
-  // const divSubmit =() =>{if (auth.currentUser === firestore.doc(`posts/users/uid`){
-
-  // }
-  // }
-
   const { classes } = props;
   return (
     <div css={marginStyle}>
@@ -173,8 +177,7 @@ function PrisonPost(props) {
                 <span
                   className="close-icon"
                   onClick={() => {
-                    setEditing(false);
-                    props.setEditing2(false);
+                    handleFormClose();
                   }}
                 >
                   Close
@@ -345,7 +348,7 @@ function PrisonPost(props) {
                       onSubmit={handlePrisonSubmit}
                       type="submit"
                     >
-                      Submit
+                      Update
                     </Button>
                   </div>
                 )}

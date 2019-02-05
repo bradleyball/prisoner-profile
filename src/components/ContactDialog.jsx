@@ -47,6 +47,10 @@ const ContactDialog = props => {
         <AddIcon />
       </Fab>
       <Dialog aria-labelledby="simple-dialog-title" open={open}>
+        <span className="close-icon" onClick={handleClose}>
+          Close
+          <img src={require("./Images/close.png")} alt="close" />
+        </span>
         <DialogTitle id="simple-dialog-title">Contact Info</DialogTitle>
         <div>
           <List>
