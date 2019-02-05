@@ -42,8 +42,9 @@ const styles = theme => ({
 });
 
 function PrisonDialogForm(props) {
-  const [open, setOpen] = React.useState(false);
+  const [opens, setOpens] = React.useState(false);
   const [age, setAge] = React.useState("");
+  const [per, setPer] = React.useState("");
   const { classes } = props;
   const { prisonName, setPrisonName } = useContext(PrisonNameContext);
   const { street, setStreet } = useContext(StreetContext);
@@ -55,15 +56,19 @@ function PrisonDialogForm(props) {
   const { contactEmail, setContactEmail } = useContext(ContactEmailContext);
 
   function handleClickOpen() {
-    setOpen(true);
+    setOpens(true);
   }
 
   function handleClose() {
-    setOpen(false);
+    setOpens(false);
   }
 
   function handleChange(event) {
     setAge(event.target.value);
+  }
+
+  function handlePChange(event) {
+    setPer(event.target.value);
   }
 
   const handleSubmit = event => {
@@ -144,7 +149,7 @@ function PrisonDialogForm(props) {
         </div>
       </div>
       <Dialog
-        open={open}
+        open={opens}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
@@ -158,7 +163,6 @@ function PrisonDialogForm(props) {
               id="name"
               label="Name Of Worker"
               name="prisonName"
-              value={prisonerName}
               onChange={handleChanges}
               fullWidth
             />
@@ -167,7 +171,6 @@ function PrisonDialogForm(props) {
               id="name"
               label="Age"
               name="street"
-              value={prisonerAge}
               onChange={handleChanges}
             />
             <FormControl className={classes.formControl}>
@@ -175,7 +178,7 @@ function PrisonDialogForm(props) {
                 Gender
               </InputLabel>
               <Select
-                open={open}
+                // open={open}
                 onClose={handleClose}
                 onOpen={handleClickOpen}
                 value={age}
@@ -189,23 +192,22 @@ function PrisonDialogForm(props) {
                 <MenuItem value="female">Female</MenuItem>
                 <MenuItem value="other">Other</MenuItem>
               </Select>
-
-              <InputLabel htmlFor="demo-controlled-open-select">
-                Permissions
-              </InputLabel>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel>Permissions</InputLabel>
               <Select
-                open={open}
+                class="permissions"
+                value={per}
                 onClose={handleClose}
                 onOpen={handleClickOpen}
-                value={age}
-                onChange={handleChange}
+                onChange={handlePChange}
                 inputProps={{
-                  name: "age",
+                  name: "per",
                   id: "demo-controlled-open-select"
                 }}
               >
-                <MenuItem value="male">Work In Prison Only</MenuItem>
-                <MenuItem value="female">Permission for Work Leave</MenuItem>
+                <MenuItem value="work">Work</MenuItem>
+                <MenuItem value="permission">Permission</MenuItem>
               </Select>
             </FormControl>
 

@@ -1,7 +1,12 @@
 import React from "react";
+import PrisonerDialogForm from "./PrisonerDialogForm";
 
 const PrisonerApp = () => {
-  return <h2>hey</h2>;
+  return (
+    <div>
+      <PrisonerDialogForm />
+    </div>
+  );
 };
 
 export default PrisonerApp;

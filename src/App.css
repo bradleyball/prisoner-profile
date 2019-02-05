@@ -13,3 +13,7 @@
 .prison-fab-button {
   justify-content: flex-end;
 }
+
+.permissions {
+  width: 20%;
+}
