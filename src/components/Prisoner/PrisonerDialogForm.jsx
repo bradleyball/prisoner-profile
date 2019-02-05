@@ -419,79 +419,70 @@ function PrisonerDialogForm(props) {
 
   return (
     <div>
-      <Fab
-        id="prison-fab-button"
-        color="primary"
-        aria-label="Add"
-        className={`${classes.fab} prison-fab-button`}
-        onClick={openDialog}
-      >
-        <AddIcon />
-      </Fab>
-      <h2 className="prison-fab-h2">Register Your Prison</h2>
-
+      <div className="prison-form-wrapper">
+        <div className="prison-fab-wrapper">
+          <Fab
+            id="prison-fab-button"
+            color="primary"
+            aria-label="Add"
+            className={`${classes.fab} prison-fab-button`}
+            onClick={openDialog}
+          >
+            <AddIcon />
+          </Fab>
+          <h2 className="prison-fab-h2">Create a New Worker</h2>
+        </div>
+      </div>
       <Dialog
         open={openDialog}
         onClose={closeDialog}
         aria-labelledby="form-dialog-title"
       >
         <form onSubmit={prisonerSubmit}>
+          {/************************************************** General Info Section *************************************************  */}
           <DialogTitle id="form-dialog-title">
             General Prisoner Info
           </DialogTitle>
           <DialogContent>
             <TextField
-              margin="dense"
-              id="name"
               label="Name Of Worker"
-              name="prisonName"
-              onChange={handleChanges}
-              fullWidth
+              name="prisonerName"
+              value={prisonerName}
+              onChange={handlePrisonerChanges}
             />
             <TextField
-              margin="dense"
-              id="name"
               label="Age"
-              name="prisonerName"
-              onChange={handleChanges}
+              name="prisonerAge"
+              onChange={handlePrisonerChanges}
+              value={prisonerAge}
             />
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="demo-controlled-open-select">
-                Gender
-              </InputLabel>
-              <Select
-                // open={open}
-                onClose={handleClose}
-                onOpen={handleClickOpen}
-                value={age}
-                onChange={handleChange}
-                inputProps={{
-                  name: "age",
-                  id: "demo-controlled-open-select"
-                }}
-              >
-                <MenuItem value="male">Male</MenuItem>
-                <MenuItem value="female">Female</MenuItem>
-                <MenuItem value="other">Other</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel>Permissions</InputLabel>
-              <Select
-                class="permissions"
-                value={per}
-                onClose={handleClose}
-                onOpen={handleClickOpen}
-                onChange={handlePChange}
-                inputProps={{
-                  name: "per",
-                  id: "demo-controlled-open-select"
-                }}
-              >
-                <MenuItem value="work">Work</MenuItem>
-                <MenuItem value="permission">Permission</MenuItem>
-              </Select>
-            </FormControl>
+            <TextField
+              className={classes.formControl}
+              select
+              label="Gender"
+              open={openSelect}
+              onClose={closeSelect}
+              onOpen={openSelect}
+              value={prisonerGender}
+              onChange={handlePrisonerChanges}
+            >
+              <MenuItem value="male">Male</MenuItem>
+              <MenuItem value="female">Female</MenuItem>
+              <MenuItem value="other">Other</MenuItem>
+            </TextField>
+            <TextField
+              className={classes.formControl}
+              select
+              label="Permissions"
+              open={openSelect}
+              onClose={closeSelect}
+              onOpen={openSelect}
+              value={prisonerPermissions}
+              onChange={handlePrisonerChanges}
+            >
+              <MenuItem value="male">Can only work in prison.</MenuItem>
+              <MenuItem value="female">Has permission for work leave.</MenuItem>
+            </TextField>
 
             <DialogTitle id="form-dialog-title">Skills</DialogTitle>
 
