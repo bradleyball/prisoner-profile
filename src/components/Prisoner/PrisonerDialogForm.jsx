@@ -460,10 +460,11 @@ function PrisonerDialogForm(props) {
               className={classes.formControl}
               select
               label="Gender"
+              name="prisonerGender"
+              value={prisonerGender}
               open={openSelect}
               onClose={closeSelect}
               onOpen={openSelect}
-              value={prisonerGender}
               onChange={handlePrisonerChanges}
             >
               <MenuItem value="male">Male</MenuItem>
@@ -473,69 +474,62 @@ function PrisonerDialogForm(props) {
             <TextField
               className={classes.formControl}
               select
+              value={prisonerPermissions}
+              name="prisonerPermissions"
               label="Permissions"
               open={openSelect}
               onClose={closeSelect}
               onOpen={openSelect}
-              value={prisonerPermissions}
               onChange={handlePrisonerChanges}
             >
               <MenuItem value="male">Can only work in prison.</MenuItem>
               <MenuItem value="female">Has permission for work leave.</MenuItem>
             </TextField>
+            {/* ******************************************************************* Skills Section ********************************** */}
 
             <DialogTitle id="form-dialog-title">Skills</DialogTitle>
 
             <TextField
-              label="Summary(Cover Letter)"
               multiline
               rows="6"
-              defaultValue="Default Value"
+              value={summary}
+              label="Summary(Cover Letter)"
+              name="summary"
+              onChange={handlePrisonerChanges}
+              varient="outlined"
               className={classes.textField}
-              margin="normal"
             />
 
             <TextField
-              margin="dense"
-              id="name"
               label="Skills"
-              name="contactName"
-              value={contactName}
-              onChange={handleChanges}
-              fullWidth
+              name="skill1"
+              value={skill1}
+              onChange={handlePrisonerChanges}
             />
             <TextField
-              margin="dense"
-              id="name"
               label="Skills"
-              name="contactName"
-              value={contactName}
-              onChange={handleChanges}
-              fullWidth
+              name="skill2"
+              value={skill2}
+              onChange={handlePrisonerChanges}
             />
             <TextField
-              margin="dense"
-              id="name"
               label="Skills"
-              name="contactName"
-              value={contactName}
-              onChange={handleChanges}
-              fullWidth
+              name="skill3"
+              value={skill3}
+              onChange={handlePrisonerChanges}
             />
             <TextField
-              margin="dense"
-              id="name"
               label="Skills"
-              name="contactName"
-              value={contactName}
-              onChange={handleChanges}
-              fullWidth
+              name="skill3"
+              value={skill4}
+              onChange={handlePrisonerChanges}
             />
 
+            {/******************************************************************** First Previous Experience                   *********/}
             <DialogTitle id="form-dialog-title">
               Previous Work Experience
             </DialogTitle>
-            {/******************************************************************** First Previous Experience                   *********/}
+
             <TextField
               margin="dense"
               id="name"
