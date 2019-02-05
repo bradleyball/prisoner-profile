@@ -67,7 +67,8 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-
+import { UserContext } from "../../providers/UserProvider";
+// **********************************************************************  styles for material ui *************************************
 const styles = theme => ({
   fab: {
     margin: theme.spacing.unit
@@ -81,9 +82,21 @@ const styles = theme => ({
     minWidth: 120
   }
 });
+// ****************************************************************************************************************************************
+function PrisonerDialogForm(props) {
+  // ******************************************  State Hooks created in componet *********************************
 
-function PrisonDialogForm(props) {
-  const [opens, setOpens] = React.useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [openSelect, setOpenSelect] = useState(false);
+
+  // *********************************************************************************************************************************************
+  // ******************************************************* Misc Context ****************************************
+
+  const currentUser = useContext(UserContext);
+  //   ******************************************************************************************************************************************************
+
+  // ********************************************** All of the state for the form ***********************
+
   const { prisonerName, setPrisonerName } = useContext(PrisonerNameContext);
   const { prisonerAge, setPrisonerAge } = useContext(PrisonerAgeContext);
   const { prisonerGender, setPrisonerGender } = useContext(
@@ -139,6 +152,11 @@ function PrisonDialogForm(props) {
   const { fourDuty2, setFourDuty2 } = useContext(FourDuty2Context);
   const { fourDuty3, setFourDuty3 } = useContext(FourDuty3Context);
   const { fourDuty4, setFourDuty4 } = useContext(FourDuty4Context);
+
+  //   *********************************************************************************************************************************
+
+  // ***************************************** Handling Changes and Submit to form imputs ******************************
+
   const handlePrisonerChanges = e => {
     switch (e.target.name) {
       case "prisonerName":
@@ -160,6 +178,9 @@ function PrisonDialogForm(props) {
         setSkill1(e.target.value);
         break;
       case "skill2":
+        setSkill2(e.target.value);
+        break;
+      case "skill3":
         setSkill3(e.target.value);
         break;
       case "skill4":
@@ -289,23 +310,7 @@ function PrisonDialogForm(props) {
     }
   };
 
-  function handleClickOpen() {
-    setOpens(true);
-  }
-
-  function handleClose() {
-    setOpens(false);
-  }
-
-  function handleChange(event) {
-    setAge(event.target.value);
-  }
-
-  function handlePChange(event) {
-    setPer(event.target.value);
-  }
-
-  const handleSubmit = event => {
+  const prisonerSubmit = event => {
     event.preventDefault();
 
     const { uid, displayName, email, photoURL } = auth.currentUser || {};
@@ -385,61 +390,52 @@ function PrisonDialogForm(props) {
       createdAt: new Date()
     };
 
-    firestore.collection("posts").add(post);
-    handleClose();
+    firestore
+      .collection("posts")
+      .collection("prisonerProfilePosts")
+      .add(post);
+    closeDialog();
   };
+  // *******************************************************************************************************************************************************
+  //**************************************   Opening and Closing functions */
 
-  const handleChanges = e => {
-    switch (e.target.name) {
-      case "street":
-        setStreet(e.target.value);
-        break;
-      case "prisonName":
-        setPrisonName(e.target.value);
-        break;
-      case "pState":
-        setPState(e.target.value);
-        break;
-      case "city":
-        setCity(e.target.value);
-        break;
-      case "zip":
-        setZip(e.target.value);
-        break;
-      case "contactName":
-        setContactName(e.target.value);
-        break;
-      case "phoneNumber":
-        setPhoneNumber(e.target.value);
-        break;
-      case "contactEmail":
-        setContactEmail(e.target.value);
-        break;
-    }
+  function openDialog() {
+    setOpenDialog(true);
+  }
+
+  function closeDialog() {
+    setOpenDialog(false);
+  }
+
+  const openSelect = () => {
+    setOpenSelect(true);
   };
+  const closeSelect = () => {
+    setOpenSelect(true);
+  };
+  // **********************************************************************************************************************************************************
+  // classes to use styles in material ui
+  const { classes } = props;
 
   return (
     <div>
-      <div className="prison-form-wrapper">
-        <div className="prison-fab-wrapper">
-          <Fab
-            id="prison-fab-button"
-            color="primary"
-            aria-label="Add"
-            className={`${classes.fab} prison-fab-button`}
-            onClick={handleClickOpen}
-          >
-            <AddIcon />
-          </Fab>
-          <h2 className="prison-fab-h2">Register Your Prison</h2>
-        </div>
-      </div>
+      <Fab
+        id="prison-fab-button"
+        color="primary"
+        aria-label="Add"
+        className={`${classes.fab} prison-fab-button`}
+        onClick={openDialog}
+      >
+        <AddIcon />
+      </Fab>
+      <h2 className="prison-fab-h2">Register Your Prison</h2>
+
       <Dialog
-        open={opens}
-        onClose={handleClose}
+        open={openDialog}
+        onClose={closeDialog}
         aria-labelledby="form-dialog-title"
       >
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={prisonerSubmit}>
           <DialogTitle id="form-dialog-title">
             General Prisoner Info
           </DialogTitle>
@@ -957,4 +953,4 @@ function PrisonDialogForm(props) {
   );
 }
 
-export default withStyles(styles)(PrisonDialogForm);
+export default withStyles(styles)(PrisonerDialogForm);
