@@ -97,3 +97,11 @@
   grid-template-columns: repeat(2, 1fr);
   justify-items: center;
 }
+
+.close-icon {
+  display: grid;
+  grid-template-columns: repeat(2, 0.008fr);
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 2%;
+}

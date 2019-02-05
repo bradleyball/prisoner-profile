@@ -27,6 +27,7 @@ import {
   PhoneNumberContext,
   ContactEmailContext
 } from "../providers/PrisonFormProvider";
+import DeleteDialog from "./DeleteDialog";
 const styles = {
   card: {
     maxWidth: 345
@@ -44,6 +45,7 @@ const styles = {
 function PrisonPost(props) {
   const currentUser = useContext(UserContext);
   const [editing, setEditing] = useState(false);
+
   const { prisonName, setPrisonName } = useContext(PrisonNameContext);
   const { street, setStreet } = useContext(StreetContext);
   const { pState, setPState } = useContext(PStateContext);
@@ -82,8 +84,21 @@ function PrisonPost(props) {
     }
   };
 
+  const handlePrisonSubmit = event => {
+    event.preventDefault();
+
+    firestore.doc(`posts/${props.id}`).update({
+      prisonName,
+      prisonAddress: { street, pState, zip, city },
+      prisonContact: { phoneNumber, contactEmail, contactName }
+    });
+    setEditing(!editing);
+    props.setEditing2(!editing);
+  };
+
   const editClick = () => {
     setEditing(true);
+    props.setEditing2(true);
     setPrisonName(props.prisonName);
     setStreet(props.prisonAddress.street);
     setCity(props.prisonAddress.city);
@@ -132,198 +147,214 @@ function PrisonPost(props) {
       ? console.log(true)
       : console.log(false);
 
-  // const formSubmit =() =>{if (auth.currentUser === firestore.doc(`posts/users/uid`){
+  // const divSubmit =() =>{if (auth.currentUser === firestore.doc(`posts/users/uid`){
 
   // }
   // }
 
   const { classes } = props;
   return (
-    <form css={marginStyle}>
-      {belongsToCurrentUser(currentUser, user) && (
+    <div css={marginStyle}>
+      {!editing && !props.editing2 && belongsToCurrentUser(currentUser, user) && (
         <div className="edit-delete-container">
           <div className="edit-wrapper" onClick={() => editClick()}>
             <span className="edit-icon">edit</span>
             <img src={require("./Images/pedit.png")} alt="edit" />
           </div>
-          <div className="edit-wrapper">
-            <span className="edit-icon">delete</span>
-            <img src={require("./Images/delete.png")} alt="delete" />
-          </div>
+          <DeleteDialog id={props.id} />
         </div>
       )}
+
       <Card className={classes.card}>
-        <div>
-          {editing ? (
-            <TextField
-              margin="dense"
-              id="name"
-              label="Name Of Institution"
-              name="prisonName"
-              value={prisonName}
-              onChange={handleChanges}
-              fullWidth
-            />
-          ) : (
-            <CardHeader
-              component="p"
-              id="prison-post-header"
-              color="inherit"
-              align="center"
-              title={props.prisonName}
-            />
-          )}
-        </div>
-        <CardContent>
-          <div className="card-container">
-            <div css={midDivStyle}>
-              <div className="address-container">
-                {editing ? (
-                  <>
-                    <div css={addressAndIcon}>
-                      <div css={streetStyle}>
-                        <TextField
-                          margin="dense"
-                          id="street"
-                          label="Street"
-                          name="street"
-                          value={street}
-                          onChange={handleChanges}
+        <form onSubmit={handlePrisonSubmit}>
+          <div>
+            {editing ? (
+              <div>
+                <span
+                  className="close-icon"
+                  onClick={() => {
+                    setEditing(false);
+                    props.setEditing2(false);
+                  }}
+                >
+                  Close
+                  <img src={require("./Images/close.png")} alt="close" />
+                </span>
+                <TextField
+                  margin="dense"
+                  id="name"
+                  label="Name Of Institution"
+                  name="prisonName"
+                  value={prisonName}
+                  onChange={handleChanges}
+                  fullWidth
+                />{" "}
+              </div>
+            ) : (
+              <CardHeader
+                component="p"
+                id="prison-post-header"
+                color="inherit"
+                align="center"
+                title={props.prisonName}
+              />
+            )}
+          </div>
+          <CardContent>
+            <div className="card-container">
+              <div css={midDivStyle}>
+                <div className="address-container">
+                  {editing ? (
+                    <>
+                      <div css={addressAndIcon}>
+                        <div css={streetStyle}>
+                          <TextField
+                            margin="dense"
+                            id="street"
+                            label="Street"
+                            name="street"
+                            value={street}
+                            onChange={handleChanges}
+                          />
+                        </div>
+                        <CardMedia
+                          css={iconStyle}
+                          component="img"
+                          alt="profile icon"
+                          className={classes.media}
+                          image={require("./Images/p.png")}
                         />
                       </div>
-                      <CardMedia
-                        css={iconStyle}
-                        component="img"
-                        alt="profile icon"
-                        className={classes.media}
-                        image={require("./Images/p.png")}
+                      <TextField
+                        margin="dense"
+                        id="name"
+                        label="City"
+                        name="city"
+                        value={city}
+                        onChange={handleChanges}
+                        fullWidth
                       />
-                    </div>
-                    <TextField
-                      margin="dense"
-                      id="name"
-                      label="City"
-                      name="city"
-                      value={city}
-                      onChange={handleChanges}
-                      fullWidth
-                    />
-                    <TextField
-                      margin="dense"
-                      id="name"
-                      label="State"
-                      name="pState"
-                      value={pState}
-                      onChange={handleChanges}
-                      fullWidth
-                    />
-                    <TextField
-                      margin="dense"
-                      id="name"
-                      label="Zipcode"
-                      name="zip"
-                      value={zip}
-                      onChange={handleChanges}
-                      fullWidth
-                    />{" "}
-                  </>
-                ) : (
-                  <Typography gutterBottom variant="p" component="p">
-                    <span className="address-text">
-                      {props.prisonAddress.street}
-                    </span>{" "}
-                    <span className="address-text">
-                      <br />
-                      {props.prisonAddress.city},<span> </span>
-                    </span>
-                    <span className="address-text">
-                      {props.prisonAddress.pState}{" "}
-                    </span>
-                    <span className="address-text">
-                      {props.prisonAddress.zip}
-                    </span>
-                  </Typography>
-                )}
-                <div className="available-workers">
+                      <TextField
+                        margin="dense"
+                        id="name"
+                        label="State"
+                        name="pState"
+                        value={pState}
+                        onChange={handleChanges}
+                        fullWidth
+                      />
+                      <TextField
+                        margin="dense"
+                        id="name"
+                        label="Zipcode"
+                        name="zip"
+                        value={zip}
+                        onChange={handleChanges}
+                        fullWidth
+                      />{" "}
+                    </>
+                  ) : (
+                    <Typography gutterBottom variant="p" component="p">
+                      <span className="address-text">
+                        {props.prisonAddress.street}
+                      </span>{" "}
+                      <span className="address-text">
+                        <br />
+                        {props.prisonAddress.city},<span> </span>
+                      </span>
+                      <span className="address-text">
+                        {props.prisonAddress.pState}{" "}
+                      </span>
+                      <span className="address-text">
+                        {props.prisonAddress.zip}
+                      </span>
+                    </Typography>
+                  )}
+                  <div className="available-workers">
+                    {!editing && (
+                      <Typography component="p">
+                        Available Workers: 1
+                      </Typography>
+                    )}
+                  </div>
+                </div>
+                <div className="view-profile-container">
                   {!editing && (
-                    <Typography component="p">Available Workers: 1</Typography>
+                    <CardMedia
+                      component="img"
+                      alt="profile icon"
+                      className={classes.media}
+                      image={require("./Images/p.png")}
+                    />
+                  )}
+                  <div className="space" />
+                  {!editing && (
+                    <Button
+                      color="primary"
+                      variant="raised"
+                      size="small"
+                      className="btn"
+                    >
+                      View Profile
+                    </Button>
                   )}
                 </div>
               </div>
-              <div className="view-profile-container">
-                {!editing && (
-                  <CardMedia
-                    component="img"
-                    alt="profile icon"
-                    className={classes.media}
-                    image={require("./Images/p.png")}
-                  />
-                )}
-                <div className="space" />
-                {!editing && (
-                  <Button
-                    color="primary"
-                    variant="raised"
-                    size="small"
-                    className="btn"
-                  >
-                    View Profile
-                  </Button>
+              <div className="contact-info-container">
+                <span className="span-container">
+                  <span className="contact-info-header">Contact Info</span>
+
+                  <ContactDialog {...props} />
+                </span>
+                {editing && (
+                  <div>
+                    <TextField
+                      margin="dense"
+                      id="name"
+                      label="Contact Name"
+                      name="contactName"
+                      value={contactName}
+                      onChange={handleChanges}
+                      fullWidth
+                    />
+
+                    <TextField
+                      margin="dense"
+                      id="name"
+                      label="Email"
+                      name="contactEmail"
+                      value={contactEmail}
+                      onChange={handleChanges}
+                      fullWidth
+                    />
+                    <TextField
+                      margin="dense"
+                      id="name"
+                      label="Phone Number"
+                      name="phoneNumber"
+                      value={phoneNumber}
+                      onChange={handleChanges}
+                      fullWidth
+                    />
+                    <Button
+                      css={submitButton}
+                      color="primary"
+                      variant="raised"
+                      size="large"
+                      className="btn"
+                      onSubmit={handlePrisonSubmit}
+                      type="submit"
+                    >
+                      Submit
+                    </Button>
+                  </div>
                 )}
               </div>
             </div>
-            <div className="contact-info-container">
-              <span className="span-container">
-                <span className="contact-info-header">Contact Info</span>
-
-                <ContactDialog {...props} />
-              </span>
-              {editing && (
-                <div>
-                  <TextField
-                    margin="dense"
-                    id="name"
-                    label="Contact Name"
-                    name="contactName"
-                    value={contactName}
-                    onChange={handleChanges}
-                    fullWidth
-                  />
-
-                  <TextField
-                    margin="dense"
-                    id="name"
-                    label="Email"
-                    name="contactEmail"
-                    value={contactEmail}
-                    onChange={handleChanges}
-                    fullWidth
-                  />
-                  <TextField
-                    margin="dense"
-                    id="name"
-                    label="Phone Number"
-                    name="phoneNumber"
-                    value={phoneNumber}
-                    onChange={handleChanges}
-                    fullWidth
-                  />
-                  <Button
-                    css={submitButton}
-                    color="primary"
-                    variant="raised"
-                    size="large"
-                    className="btn"
-                  >
-                    Submit
-                  </Button>
-                </div>
-              )}
-            </div>
-          </div>
-        </CardContent>
+          </CardContent>
+        </form>
       </Card>
-    </form>
+    </div>
   );
 }
 
