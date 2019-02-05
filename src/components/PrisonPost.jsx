@@ -14,6 +14,7 @@ import "./PrisonPosts.css";
 import ContactDialog from "./ContactDialog";
 import { UserContext } from "../providers/UserProvider";
 import { jsx, css } from "@emotion/core";
+import { firestore, auth } from "../firebase";
 
 const styles = {
   card: {
@@ -43,9 +44,22 @@ function PrisonPost(props) {
       margin-top: 25px;
     `;
 
+  const log = () =>
+    firestore.collection("posts").doc("") === "aahfCncQKMvDD7w6slaO"
+      ? console.log(true)
+      : console.log(false);
+
+  // const formSubmit =() =>{if (auth.currentUser === firestore.doc(`posts/users/uid`){
+
+  // }
+  // }
+
   const { classes } = props;
   return (
-    <div css={marginStyle}>
+    <form css={marginStyle}>
+      {firestore.collection("posts").doc("prisonAddress") === "prisonAddress"
+        ? console.log(true)
+        : console.log(false)}
       {belongsToCurrentUser(currentUser, user) && (
         <div className="edit-delete-container">
           <div className="edit-wrapper">
@@ -120,7 +134,7 @@ function PrisonPost(props) {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </form>
   );
 }
 
