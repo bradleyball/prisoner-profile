@@ -525,107 +525,86 @@ function PrisonerDialogForm(props) {
               onChange={handlePrisonerChanges}
             />
 
-            {/******************************************************************** First Previous Experience                   *********/}
+            {/************************************************************************** First Previous Experience Section *********/}
             <DialogTitle id="form-dialog-title">
               Previous Work Experience
             </DialogTitle>
 
             <TextField
-              margin="dense"
-              id="name"
               label="Company/Employer"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              name="oneEmployer"
+              value={oneEmployer}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              margin="dense"
-              id="name"
-              label="Position"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Title"
+              name="onePosition"
+              value={onePosition}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              id="date"
               label="Start Date"
+              name="oneStartDate"
+              value={oneStartDate}
+              onChange={handlePrisonerChanges}
               type="date"
-              defaultValue="2017-05-24"
+              defaultValue="yyyy-mm-dd"
               className={classes.textField}
               InputLabelProps={{
                 shrink: true
               }}
             />
             <TextField
-              id="date"
               label="End Date"
               type="date"
-              defaultValue="2017-05-24"
+              defaultValue="yyyy-mm-dd"
+              name="oneEndDate"
+              value={oneEndDate}
               className={classes.textField}
               InputLabelProps={{
                 shrink: true
               }}
             />
             <TextField
-              margin="dense"
-              id="name"
               label="City of Employment"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              name="oneCity"
+              value={oneCity}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              margin="dense"
-              id="name"
               label="State of Employment"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              name="oneState"
+              value={oneState}
+              onChange={handlePrisonerChanges}
             />
             <TextField
-              margin="dense"
-              id="name"
-              label="Duties"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Responsibilities (Short Sentence)"
+              name="oneDuty1"
+              value={oneDuty1}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              margin="dense"
-              id="name"
-              label="Duties"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Responsibilities (Short Sentence)"
+              name="oneDuty2"
+              value={oneDuty2}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              margin="dense"
-              id="name"
-              label="Duties"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Responsibilities (Short Sentence)"
+              name="oneDuty3"
+              value={oneDuty3}
+              onChange={handlePrisonerChanges}
             />
             <TextField
-              margin="dense"
-              id="name"
-              label="Duties"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Responsibilities (Short Sentence)"
+              name="oneDuty4"
+              value={oneDuty4}
+              onChange={handlePrisonerChanges}
             />
 
             {/******************************************************************** Second Previous Experience                   *********/}
