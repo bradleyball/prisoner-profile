@@ -57,7 +57,7 @@ export const PrisonFormProvider = props => {
   const [prisonerPermissions, setPrisonerPermissions] = useState("");
   const [summary, setSummary] = useState("");
   const [skill1, setSkill1] = useState("");
-  const [skill2, setSkill2] = useState(null);
+  const [skill2, setSkill2] = useState("");
   const [skill3, setSkill3] = useState("");
   const [skill4, setSkill4] = useState("");
   const [oneEmployer, setOneEmployer] = useState("");
@@ -65,7 +65,7 @@ export const PrisonFormProvider = props => {
   const [oneStartDate, setOneStartDate] = useState("");
   const [oneEndDate, setOneEndDate] = useState("");
   const [oneCity, setOneCity] = useState("");
-  const [oneState, setOneState] = useState(null);
+  const [oneState, setOneState] = useState("");
   const [oneDuty1, setOneDuty1] = useState("");
   const [oneDuty2, , setOneDuty2] = useState("");
   const [oneDuty3, setOneDuty3] = useState("");
@@ -75,7 +75,7 @@ export const PrisonFormProvider = props => {
   const [twoStartDate, setTwoStartDate] = useState("");
   const [twoEndDate, setTwoEndDate] = useState("");
   const [twoCity, setTwoCity] = useState("");
-  const [twoState, setTwoState] = useState(null);
+  const [twoState, setTwoState] = useState("");
   const [twoDuty1, setTwoDuty1] = useState("");
   const [twoDuty2, , setTwoDuty2] = useState("");
   const [twoDuty3, setTwoDuty3] = useState("");
@@ -85,7 +85,7 @@ export const PrisonFormProvider = props => {
   const [threeStartDate, setThreeStartDate] = useState("");
   const [threeEndDate, setThreeEndDate] = useState("");
   const [threeCity, setThreeCity] = useState("");
-  const [threeState, setThreeState] = useState(null);
+  const [threeState, setThreeState] = useState("");
   const [threeDuty1, setThreeDuty1] = useState("");
   const [threeDuty2, , setThreeDuty2] = useState("");
   const [threeDuty3, setThreeDuty3] = useState("");
@@ -95,43 +95,214 @@ export const PrisonFormProvider = props => {
   const [fourStartDate, setFourStartDate] = useState("");
   const [fourEndDate, setFourEndDate] = useState("");
   const [fourCity, setFourCity] = useState("");
-  const [fourState, setFourState] = useState(null);
+  const [fourState, setFourState] = useState("");
   const [fourDuty1, setFourDuty1] = useState("");
   const [fourDuty2, , setFourDuty2] = useState("");
   const [fourDuty3, setFourDuty3] = useState("");
   const [fourDuty4, setFourDuty4] = useState("");
 
-  const prisonNameContext = {
-    prisonName,
-    setPrisonName
+  const prisonerNameContext = {
+    prisonerName,
+    setPrisonerName
   };
-  const streetContext = {
-    street,
-    setStreet
+  const prisonerAgeContext = {
+    prisonerAge,
+    setPrisonerAge
   };
-  const pStateContext = {
-    pState,
-    setPState
+  const prisonerGenderContext = {
+    prisonerGender,
+    setPrisonerGender
   };
-  const cityContext = {
-    city,
-    setCity
+  const prisonerPermissionsContext = {
+    prisonerPermissions,
+    setPrisonerPermissions
   };
-  const zipContext = {
-    zip,
-    setZip
+  const summaryContext = {
+    summary,
+    setSummary
   };
-  const contactNameContext = {
-    contactName,
-    setContactName
+  const skill1Context = {
+    skill1,
+    setSkill1
   };
-  const phoneNumberContext = {
-    phoneNumber,
-    setPhoneNumber
+  const skill2Context = {
+    skill2,
+    setSkill2
   };
-  const contactEmailContext = {
-    contactEmail,
-    setContactEmail
+  const skill3Context = {
+    skill3,
+    setSkill3
+  };
+
+  const skill4Context = {
+    skill4,
+    setSkill4
+  };
+
+  const oneEmployerContext = {
+    oneEmployer,
+    setOneEmployer
+  };
+  const onePositionContext = {
+    onePosition,
+    setOnePosition
+  };
+  const oneStartDateContext = {
+    oneStartDate,
+    setOneStartDate
+  };
+  const oneEndDateContext = {
+    oneEndDate,
+    setOneEndDate
+  };
+
+  const oneCityContext = {
+    oneCity,
+    setOneCity
+  };
+  const oneStateContext = {
+    oneState,
+    setOneState
+  };
+  const oneDuty1Context = {
+    oneDuty1,
+    setOneDuty1
+  };
+  const oneDuty2Context = {
+    oneDuty2,
+    setOneDuty2
+  };
+  const oneDuty3Context = {
+    oneDuty3,
+    setOneDuty3
+  };
+  const oneDuty4Context = {
+    oneDuty4,
+    setOneDuty4
+  };
+
+  const twoEmployerContext = {
+    twoEmployer,
+    setTwoEmployer
+  };
+  const twoPositionContext = {
+    twoPosition,
+    setTwoPosition
+  };
+  const twoStartDateContext = {
+    twoStartDate,
+    setTwoStartDate
+  };
+  const twoEndDateContext = {
+    twoEndDate,
+    setTwoEndDate
+  };
+
+  const twoCityContext = {
+    twoCity,
+    setTwoCity
+  };
+  const twoStateContext = {
+    twoState,
+    setTwoState
+  };
+  const twoDuty1Context = {
+    twoDuty1,
+    setTwoDuty1
+  };
+  const twoDuty2Context = {
+    twoDuty2,
+    setTwoDuty2
+  };
+  const twoDuty3Context = {
+    twoDuty3,
+    setTwoDuty3
+  };
+  const twoDuty4Context = {
+    twoDuty4,
+    setTwoDuty4
+  };
+  const threeEmployerContext = {
+    threeEmployer,
+    setThreeEmployer
+  };
+  const threePositionContext = {
+    threePosition,
+    setThreePosition
+  };
+  const threeStartDateContext = {
+    threeStartDate,
+    setThreeStartDate
+  };
+  const threeEndDateContext = {
+    threeEndDate,
+    setThreeEndDate
+  };
+
+  const threeCityContext = {
+    threeCity,
+    setThreeCity
+  };
+  const threeStateContext = {
+    threeState,
+    setThreeState
+  };
+  const threeDuty1Context = {
+    threeDuty1,
+    setThreeDuty1
+  };
+  const threeDuty2Context = {
+    threeDuty2,
+    setThreeDuty2
+  };
+  const threeDuty3Context = {
+    threeDuty3,
+    setThreeDuty3
+  };
+  const threeDuty4Context = {
+    threeDuty4,
+    setThreeDuty4
+  };
+  const fourEmployerContext = {
+    fourEmployer,
+    setFourEmployer
+  };
+  const fourPositionContext = {
+    fourPosition,
+    setFourPosition
+  };
+  const fourStartDateContext = {
+    fourStartDate,
+    setFourStartDate
+  };
+  const fourEndDateContext = {
+    fourEndDate,
+    setFourEndDate
+  };
+
+  const fourCityContext = {
+    fourCity,
+    setFourCity
+  };
+  const fourStateContext = {
+    fourState,
+    setFourState
+  };
+  const fourDuty1Context = {
+    fourDuty1,
+    setFourDuty1
+  };
+  const fourDuty2Context = {
+    fourDuty2,
+    setFourDuty2
+  };
+  const fourDuty3Context = {
+    fourDuty3,
+    setFourDuty3
+  };
+  const fourDuty4Context = {
+    fourDuty4,
+    setFourDuty4
   };
 
   const { children } = props;
