@@ -5,7 +5,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { firestore } from "../firebase";
+import { firestore } from "../../firebase";
 
 const DeleteDialog = props => {
   const [open, setOpen] = useState(false);
@@ -25,7 +25,7 @@ const DeleteDialog = props => {
     <div>
       <div className="edit-wrapper" onClick={deleteOpen}>
         <span className="edit-icon">delete</span>
-        <img src={require("./Images/delete.png")} alt="delete" />
+        <img src={require("../Images/delete.png")} alt="delete" />
       </div>
       <Dialog
         open={open}

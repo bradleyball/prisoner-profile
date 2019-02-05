@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { PostsContext } from "../providers/PostProvider";
+import { PostsContext } from "../../providers/PostProvider";
 import PrisonPost from "./PrisonPost";
 
 export const PrisonPosts = () => {

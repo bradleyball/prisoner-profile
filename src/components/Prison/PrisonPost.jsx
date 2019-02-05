@@ -14,9 +14,9 @@ import Typography from "@material-ui/core/Typography";
 import CardHeader from "@material-ui/core/CardHeader";
 import "./PrisonPosts.css";
 import ContactDialog from "./ContactDialog";
-import { UserContext } from "../providers/UserProvider";
+import { UserContext } from "../../providers/UserProvider";
 import { jsx, css } from "@emotion/core";
-import { firestore, auth } from "../firebase";
+import { firestore, auth } from "../../firebase";
 import {
   PrisonNameContext,
   StreetContext,
@@ -26,7 +26,7 @@ import {
   ContactNameContext,
   PhoneNumberContext,
   ContactEmailContext
-} from "../providers/PrisonFormProvider";
+} from "../../providers/PrisonFormProvider";
 import DeleteDialog from "./DeleteDialog";
 const styles = {
   card: {
@@ -163,7 +163,7 @@ function PrisonPost(props) {
         <div className="edit-delete-container">
           <div className="edit-wrapper" onClick={() => editClick()}>
             <span className="edit-icon">edit</span>
-            <img src={require("./Images/pedit.png")} alt="edit" />
+            <img src={require("../Images/pedit.png")} alt="edit" />
           </div>
           <DeleteDialog id={props.id} />
         </div>
@@ -181,7 +181,7 @@ function PrisonPost(props) {
                   }}
                 >
                   Close
-                  <img src={require("./Images/close.png")} alt="close" />
+                  <img src={require("../Images/close.png")} alt="close" />
                 </span>
                 <TextField
                   margin="dense"
@@ -225,7 +225,7 @@ function PrisonPost(props) {
                           component="img"
                           alt="profile icon"
                           className={classes.media}
-                          image={require("./Images/p.png")}
+                          image={require("../Images/p.png")}
                         />
                       </div>
                       <TextField
@@ -287,7 +287,7 @@ function PrisonPost(props) {
                       component="img"
                       alt="profile icon"
                       className={classes.media}
-                      image={require("./Images/p.png")}
+                      image={require("../Images/p.png")}
                     />
                   )}
                   <div className="space" />

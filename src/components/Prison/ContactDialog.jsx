@@ -49,7 +49,7 @@ const ContactDialog = props => {
       <Dialog aria-labelledby="simple-dialog-title" open={open}>
         <span className="close-icon" onClick={handleClose}>
           Close
-          <img src={require("./Images/close.png")} alt="close" />
+          <img src={require("../Images/close.png")} alt="close" />
         </span>
         <DialogTitle id="simple-dialog-title">Contact Info</DialogTitle>
         <div>
@@ -58,7 +58,7 @@ const ContactDialog = props => {
               <ListItemAvatar>
                 <Avatar className={classes.avatar}>
                   <img
-                    src={require("./Images/jobtitle.png")}
+                    src={require("../Images/jobtitle.png")}
                     alt="Position:"
                     className="contact-image1"
                   />
@@ -71,7 +71,7 @@ const ContactDialog = props => {
               <ListItemAvatar>
                 <Avatar className={classes.avatar}>
                   <img
-                    src={require("./Images/phone.jpeg")}
+                    src={require("../Images/phone.jpeg")}
                     alt="Position:"
                     className="contact-image2"
                   />
@@ -84,7 +84,7 @@ const ContactDialog = props => {
               <ListItemAvatar>
                 <Avatar className={classes.avatar}>
                   <img
-                    src={require("./Images/email.jpeg")}
+                    src={require("../Images/email.jpeg")}
                     alt="Email:"
                     className="contact-image3"
                   />

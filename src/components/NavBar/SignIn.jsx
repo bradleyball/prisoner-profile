@@ -1,20 +1,17 @@
 /* eslint-disable default-case */
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
-
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { auth, createUserProfileDocument } from "../firebase";
+import { auth } from "../../firebase";
 
-function SignUp() {
+function SignIn() {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [displayName, setDisplayName] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -32,13 +29,6 @@ function SignUp() {
       case "password":
         setPassword(e.target.value);
         break;
-      case "confirmPassword":
-        setConfirmPassword(e.target.value);
-        break;
-
-      case "displayName":
-        setDisplayName(e.target.value);
-        break;
     }
   };
 
@@ -46,34 +36,29 @@ function SignUp() {
     event.preventDefault();
 
     try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-      createUserProfileDocument(user, { displayName });
+      await auth.signInWithEmailAndPassword(email, password);
     } catch (error) {
       alert(error);
     }
     setEmail("");
     setPassword("");
-    setConfirmPassword("");
-    setDisplayName("");
     handleClose();
   };
 
   return (
     <div>
       <Button color="inherit" onClick={handleClickOpen}>
-        Sign Up
+        Login
       </Button>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        {" "}
         <form onSubmit={handleSubmit}>
-          <DialogTitle id="form-dialog-title">Create An Account</DialogTitle>
+          <DialogTitle id="form-dialog-title">
+            Login To Your Account
+          </DialogTitle>
           <DialogContent>
             <TextField
               autoFocus
@@ -96,45 +81,24 @@ function SignUp() {
               onChange={handleChanges}
               fullWidth
             />
-            <TextField
-              margin="dense"
-              id="name"
-              label="Confirm Password"
-              type="password"
-              name="confirmPassword"
-              value={confirmPassword}
-              onChange={handleChanges}
-              fullWidth
-            />
-            <TextField
-              margin="dense"
-              id="name"
-              label="Full Name"
-              type="displayName"
-              name="displayName"
-              value={displayName}
-              onChange={handleChanges}
-              fullWidth
-            />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
               Cancel
             </Button>
-
             <Button
-              onSubmit={handleSubmit}
               color="primary"
               type="submit"
               value="Sign In"
+              onSubmit={handleSubmit}
             >
-              Create Account
+              Login
             </Button>
-          </DialogActions>
+          </DialogActions>{" "}
         </form>
       </Dialog>
     </div>
   );
 }
 
-export default SignUp;
+export default SignIn;

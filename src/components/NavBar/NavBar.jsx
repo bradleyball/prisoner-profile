@@ -9,8 +9,8 @@ import PersonIcon from "@material-ui/icons/Person";
 import HomeIcon from "@material-ui/icons/Home";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
-import { UserContext } from "../providers/UserProvider";
-import { signOut } from "../firebase";
+import { UserContext } from "../../providers/UserProvider";
+import { signOut } from "../../firebase";
 import Button from "@material-ui/core/Button";
 
 const styles = {

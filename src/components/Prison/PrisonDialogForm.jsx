@@ -9,8 +9,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import { withStyles } from "@material-ui/core/styles";
-import "../App.css";
-import { auth, firestore } from "../firebase";
+import "../../App.css";
+import { auth, firestore } from "../../firebase";
 import {
   PrisonNameContext,
   StreetContext,
@@ -20,7 +20,7 @@ import {
   ContactNameContext,
   PhoneNumberContext,
   ContactEmailContext
-} from "../providers/PrisonFormProvider";
+} from "../../providers/PrisonFormProvider";
 
 const styles = theme => ({
   fab: {
