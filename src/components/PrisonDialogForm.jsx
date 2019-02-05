@@ -65,7 +65,7 @@ function PrisonDialogForm(props) {
       },
       prisonContact: {
         contactName,
-        position,
+
         contactEmail,
         phoneNumber
       },
@@ -108,10 +108,6 @@ function PrisonDialogForm(props) {
         break;
       case "contactEmail":
         setContactEmail(e.target.value);
-        break;
-
-      case "position":
-        setPosition(e.target.value);
         break;
     }
   };
@@ -197,15 +193,7 @@ function PrisonDialogForm(props) {
               onChange={handleChanges}
               fullWidth
             />
-            <TextField
-              margin="dense"
-              id="name"
-              label="Position"
-              name="position"
-              value={position}
-              onChange={handleChanges}
-              fullWidth
-            />
+
             <TextField
               margin="dense"
               id="name"

@@ -9,7 +9,7 @@ export const ContactNameContext = createContext();
 export const PhoneNumberContext = createContext();
 export const ContactEmailContext = createContext();
 
-function PrisonFormProvider(props) {
+export const PrisonFormProvider = props => {
   const [prisonName, setPrisonName] = useState("");
   const [street, setStreet] = useState("");
   const [pState, setPState] = useState("");
@@ -19,35 +19,35 @@ function PrisonFormProvider(props) {
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [contactEmail, setContactEmail] = useState("");
 
-  const PrisonNameContext = {
+  const prisonNameContext = {
     prisonName,
     setPrisonName
   };
-  const StreetContext = {
+  const streetContext = {
     street,
     setStreet
   };
-  const PStateContext = {
+  const pStateContext = {
     pState,
     setPState
   };
-  const CityContext = {
+  const cityContext = {
     city,
     setCity
   };
-  const ZipContext = {
+  const zipContext = {
     zip,
     setZip
   };
-  const ContactNameContext = {
+  const contactNameContext = {
     contactName,
     setContactName
   };
-  const PhoneNumberContext = {
+  const phoneNumberContext = {
     phoneNumber,
     setPhoneNumber
   };
-  const ContactEmailContext = {
+  const contactEmailContext = {
     contactEmail,
     setContactEmail
   };
@@ -55,14 +55,14 @@ function PrisonFormProvider(props) {
   const { children } = props;
 
   return (
-    <PrisonNameContext.Provider value={PrisonNameContext}>
-      <StreetContext.Provider value={StreetContext}>
-        <PStateContext.Provider value={PStateContext}>
-          <CityContext.Provider value={CityContext}>
-            <ZipContext.Provider value={ZipContext}>
-              <ContactNameContext.Provider value={ContactNameContext}>
-                <PhoneNumberContext.Provider value={PhoneNumberContext}>
-                  <ContactEmailContext.Provider value={ContactEmailContext}>
+    <PrisonNameContext.Provider value={prisonNameContext}>
+      <StreetContext.Provider value={streetContext}>
+        <PStateContext.Provider value={pStateContext}>
+          <CityContext.Provider value={cityContext}>
+            <ZipContext.Provider value={zipContext}>
+              <ContactNameContext.Provider value={contactNameContext}>
+                <PhoneNumberContext.Provider value={phoneNumberContext}>
+                  <ContactEmailContext.Provider value={contactEmailContext}>
                     {children}
                   </ContactEmailContext.Provider>
                 </PhoneNumberContext.Provider>
@@ -73,6 +73,4 @@ function PrisonFormProvider(props) {
       </StreetContext.Provider>
     </PrisonNameContext.Provider>
   );
-}
-
-export default PrisonFormProvider;
+};
