@@ -1,5 +1,5 @@
 /* eslint-disable default-case */
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -11,6 +11,16 @@ import AddIcon from "@material-ui/icons/Add";
 import { withStyles } from "@material-ui/core/styles";
 import "../App.css";
 import { auth, firestore } from "../firebase";
+import {
+  PrisonNameContext,
+  StreetContext,
+  PStateContext,
+  CityContext,
+  ZipContext,
+  ContactNameContext,
+  PhoneNumberContext,
+  ContactEmailContext
+} from "../providers/PrisonFormProvider";
 
 const styles = theme => ({
   fab: {
@@ -24,15 +34,14 @@ const styles = theme => ({
 function PrisonDialogForm(props) {
   const [open, setOpen] = React.useState(false);
   const { classes } = props;
-  const [prisonName, setPrisonName] = useState("");
-  const [street, setStreet] = useState("");
-  const [pState, setPState] = useState("");
-  const [city, setCity] = useState("");
-  const [zip, setZip] = useState("");
-  const [contactName, setContactName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState(null);
-  const [contactEmail, setContactEmail] = useState("");
-  const [position, setPosition] = useState("");
+  const { prisonName, setPrisonName } = useContext(PrisonNameContext);
+  const { street, setStreet } = useContext(StreetContext);
+  const { pState, setPState } = useContext(PStateContext);
+  const { city, setCity } = useContext(CityContext);
+  const { zip, setZip } = useContext(ZipContext);
+  const { contactName, setContactName } = useContext(ContactNameContext);
+  const { phoneNumber, setPhoneNumber } = useContext(PhoneNumberContext);
+  const { contactEmail, setContactEmail } = useContext(ContactEmailContext);
 
   function handleClickOpen() {
     setOpen(true);
