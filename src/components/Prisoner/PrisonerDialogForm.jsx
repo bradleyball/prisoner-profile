@@ -12,14 +12,55 @@ import { withStyles } from "@material-ui/core/styles";
 import "../../App.css";
 import { auth, firestore } from "../../firebase";
 import {
-  PrisonNameContext,
-  StreetContext,
-  PStateContext,
-  CityContext,
-  ZipContext,
-  ContactNameContext,
-  PhoneNumberContext,
-  ContactEmailContext
+  PrisonerNameContext,
+  PrisonerAgeContext,
+  PrisonerGenderContext,
+  PrisonerPermissionsContext,
+  SummaryContext,
+  Skill1Context,
+  Skill2Context,
+  Skill3Context,
+  Skill4Context,
+  OneEmployerContext,
+  OnePositionContext,
+  OneStartDateContext,
+  OneEndDateContext,
+  OneCityContext,
+  OneStateContext,
+  OneDuty1Context,
+  OneDuty2Context,
+  OneDuty3Context,
+  OneDuty4Context,
+  TwoEmployerContext,
+  TwoPositionContext,
+  TwoStartDateContext,
+  TwoEndDateContext,
+  TwoCityContext,
+  TwoStateContext,
+  TwoDuty1Context,
+  TwoDuty2Context,
+  TwoDuty3Context,
+  TwoDuty4Context,
+  ThreeEmployerContext,
+  ThreePositionContext,
+  ThreeStartDateContext,
+  ThreeEndDateContext,
+  ThreeCityContext,
+  ThreeStateContext,
+  ThreeDuty1Context,
+  ThreeDuty2Context,
+  ThreeDuty3Context,
+  ThreeDuty4Context,
+  FourEmployerContext,
+  FourPositionContext,
+  FourStartDateContext,
+  FourEndDateContext,
+  FourCityContext,
+  FourStateContext,
+  FourDuty1Context,
+  FourDuty2Context,
+  FourDuty3Context,
+  FourDuty4Context
 } from "../../providers/PrisonFormProvider";
 
 import InputLabel from "@material-ui/core/InputLabel";
@@ -43,17 +84,61 @@ const styles = theme => ({
 
 function PrisonDialogForm(props) {
   const [opens, setOpens] = React.useState(false);
-  const [age, setAge] = React.useState("");
-  const [per, setPer] = React.useState("");
-  const { classes } = props;
-  const { prisonName, setPrisonName } = useContext(PrisonNameContext);
-  const { street, setStreet } = useContext(StreetContext);
-  const { pState, setPState } = useContext(PStateContext);
-  const { city, setCity } = useContext(CityContext);
-  const { zip, setZip } = useContext(ZipContext);
-  const { contactName, setContactName } = useContext(ContactNameContext);
-  const { phoneNumber, setPhoneNumber } = useContext(PhoneNumberContext);
-  const { contactEmail, setContactEmail } = useContext(ContactEmailContext);
+  const { prisonerName, setPrisonerName } = useContext(PrisonerNameContext);
+  const { prisonerAge, setPrisonerAge } = useContext(PrisonerAgeContext);
+  const { prisonerGender, setPrisonerGender } = useContext(
+    PrisonerGenderContext
+  );
+  const { prisonerPermissions, setPrisonerPermissions } = useContext(
+    PrisonerPermissionsContext
+  );
+  const { summary, setSummary } = useContext(SummaryContext);
+  const { skill1, setSkill1 } = useContext(Skill1Context);
+  const { skill2, setSkill2 } = useContext(Skill2Context);
+  const { skill3, setSkill3 } = useContext(Skill3Context);
+  const { skill4, setSkill4 } = useContext(Skill4Context);
+  const { oneEmployer, setOneEmployer } = useContext(OneEmployerContext);
+  const { onePosition, setOnePosition } = useContext(OnePositionContext);
+  const { oneStartDate, setOneStartDate } = useContext(OneStartDateContext);
+  const { oneEndDate, setOneEndDate } = useContext(OneEndDateContext);
+  const { oneCity, setOneCity } = useContext(OneCityContext);
+  const { oneState, setOneState } = useContext(OneStateContext);
+  const { oneDuty1, setOneDuty1 } = useContext(OneDuty1Context);
+  const { oneDuty2, setOneDuty2 } = useContext(OneDuty2Context);
+  const { oneDuty3, setOneDuty3 } = useContext(OneDuty3Context);
+  const { oneDuty4, setOneDuty4 } = useContext(OneDuty4Context);
+  const { twoEmployer, setTwoEmployer } = useContext(TwoEmployerContext);
+  const { twoPosition, setTwoPosition } = useContext(TwoPositionContext);
+  const { twoStartDate, setTwoStartDate } = useContext(TwoStartDateContext);
+  const { twoEndDate, setTwoEndDate } = useContext(TwoEndDateContext);
+  const { twoCity, setTwoCity } = useContext(TwoCityContext);
+  const { twoState, setTwoState } = useContext(TwoStateContext);
+  const { twoDuty1, setTwoDuty1 } = useContext(TwoDuty1Context);
+  const { twoDuty2, setTwoDuty2 } = useContext(TwoDuty2Context);
+  const { twoDuty3, setTwoDuty3 } = useContext(TwoDuty3Context);
+  const { twoDuty4, setTwoDuty4 } = useContext(TwoDuty4Context);
+  const { threeEmployer, setThreeEmployer } = useContext(ThreeEmployerContext);
+  const { threePosition, setThreePosition } = useContext(ThreePositionContext);
+  const { threeStartDate, setThreeStartDate } = useContext(
+    ThreeStartDateContext
+  );
+  const { threeEndDate, setThreeEndDate } = useContext(ThreeEndDateContext);
+  const { threeCity, setThreeCity } = useContext(ThreeCityContext);
+  const { threeState, setThreeState } = useContext(ThreeStateContext);
+  const { threeDuty1, setThreeDuty1 } = useContext(ThreeDuty1Context);
+  const { threeDuty2, setThreeDuty2 } = useContext(ThreeDuty2Context);
+  const { threeDuty3, setThreeDuty3 } = useContext(ThreeDuty3Context);
+  const { threeDuty4, setThreeDuty4 } = useContext(ThreeDuty4Context);
+  const { fourEmployer, setFourEmployer } = useContext(FourEmployerContext);
+  const { fourPosition, setFourPosition } = useContext(FourPositionContext);
+  const { fourStartDate, setFourStartDate } = useContext(FourStartDateContext);
+  const { fourEndDate, setFourEndDate } = useContext(FourEndDateContext);
+  const { fourCity, setFourCity } = useContext(FourCityContext);
+  const { fourState, setFourState } = useContext(FourStateContext);
+  const { fourDuty1, setFourDuty1 } = useContext(FourDuty1Context);
+  const { fourDuty2, setFourDuty2 } = useContext(FourDuty2Context);
+  const { fourDuty3, setFourDuty3 } = useContext(FourDuty3Context);
+  const { fourDuty4, setFourDuty4 } = useContext(FourDuty4Context);
 
   function handleClickOpen() {
     setOpens(true);
@@ -76,19 +161,71 @@ function PrisonDialogForm(props) {
 
     const { uid, displayName, email, photoURL } = auth.currentUser || {};
     const post = {
-      prisonName,
-      prisonAddress: {
-        street,
-        city,
-        pState,
-        zip
+      generalInfo: {
+        prisonerName,
+        prisonerAge,
+        prisonerGender,
+        prisonerPermissions
       },
-      prisonContact: {
-        contactName,
+      skills: {
+        summary,
+        skill1,
+        skill2,
+        skill3,
+        skill4
+      },
+      workExperience1: {
+        oneEmployer,
+        onePosition,
+        oneStartDate,
+        oneEndDate,
+        oneCity,
+        oneState,
+        oneDuty1,
+        oneDuty2,
+        oneDuty3,
+        oneDuty4
+      },
 
-        contactEmail,
-        phoneNumber
+      workExperience2: {
+        twoEmployer,
+        twoPosition,
+        twoStartDate,
+        twoEndDate,
+        twoCity,
+        twoState,
+        twoDuty1,
+        twoDuty2,
+        twoDuty3,
+        twoDuty4
       },
+
+      workExperience3: {
+        threeEmployer,
+        threePosition,
+        threeStartDate,
+        threeEndDate,
+        threeCity,
+        threeState,
+        threeDuty1,
+        threeDuty2,
+        threeDuty3,
+        threeDuty4
+      },
+
+      workExperience4: {
+        fourEmployer,
+        fourPosition,
+        fourStartDate,
+        fourEndDate,
+        fourCity,
+        fourState,
+        fourDuty1,
+        fourDuty2,
+        fourDuty3,
+        fourDuty4
+      },
+
       user: {
         uid,
         displayName,
@@ -170,7 +307,7 @@ function PrisonDialogForm(props) {
               margin="dense"
               id="name"
               label="Age"
-              name="street"
+              name="prisonerName"
               onChange={handleChanges}
             />
             <FormControl className={classes.formControl}>
