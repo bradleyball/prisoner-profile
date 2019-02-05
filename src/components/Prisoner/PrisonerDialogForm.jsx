@@ -139,6 +139,155 @@ function PrisonDialogForm(props) {
   const { fourDuty2, setFourDuty2 } = useContext(FourDuty2Context);
   const { fourDuty3, setFourDuty3 } = useContext(FourDuty3Context);
   const { fourDuty4, setFourDuty4 } = useContext(FourDuty4Context);
+  const handlePrisonerChanges = e => {
+    switch (e.target.name) {
+      case "prisonerName":
+        setPrisonerName(e.target.value);
+        break;
+      case "prisonerAge":
+        setPrisonerAge(e.target.value);
+        break;
+      case "prisonerGender":
+        setPrisonerGender(e.target.value);
+        break;
+      case "prisonerPermissions":
+        setPrisonerPermissions(e.target.value);
+        break;
+      case "summary":
+        setSummary(e.target.value);
+        break;
+      case "skill1":
+        setSkill1(e.target.value);
+        break;
+      case "skill2":
+        setSkill3(e.target.value);
+        break;
+      case "skill4":
+        setSkill4(e.target.value);
+        break;
+      case "oneEmployer":
+        setOneEmployer(e.target.value);
+        break;
+      case "onePosition":
+        setOnePosition(e.target.value);
+        break;
+      case "oneStartDate":
+        setOneStartDate(e.target.value);
+        break;
+      case "oneEndDate":
+        setOneEndDate(e.target.value);
+        break;
+      case "oneCity":
+        setOneCity(e.target.value);
+        break;
+      case "oneState":
+        setOneState(e.target.value);
+        break;
+      case "oneDuty1":
+        setOneDuty1(e.target.value);
+        break;
+      case "oneDuty2":
+        setOneDuty2(e.target.value);
+        break;
+      case "oneDuty3":
+        setOneDuty3(e.target.value);
+        break;
+      case "oneDuty4":
+        setOneDuty4(e.target.value);
+        break;
+      case "twoEmployer":
+        setTwoEmployer(e.target.value);
+        break;
+      case "twoPosition":
+        setTwoPosition(e.target.value);
+        break;
+      case "twoStartDate":
+        setTwoStartDate(e.target.value);
+        break;
+      case "twoEndDate":
+        setTwoEndDate(e.target.value);
+        break;
+      case "twoCity":
+        setTwoCity(e.target.value);
+        break;
+      case "twoState":
+        setTwoState(e.target.value);
+        break;
+      case "twoDuty1":
+        setTwoDuty1(e.target.value);
+        break;
+      case "twoDuty2":
+        setTwoDuty2(e.target.value);
+        break;
+      case "twoDuty3":
+        setTwoDuty3(e.target.value);
+        break;
+      case "twoDuty4":
+        setTwoDuty4(e.target.value);
+        break;
+      case "threeEmployer":
+        setThreeEmployer(e.target.value);
+        break;
+      case "threePosition":
+        setThreePosition(e.target.value);
+        break;
+      case "threeStartDate":
+        setThreeStartDate(e.target.value);
+        break;
+      case "threeEndDate":
+        setThreeEndDate(e.target.value);
+        break;
+      case "threeCity":
+        setThreeCity(e.target.value);
+        break;
+      case "threeState":
+        setThreeState(e.target.value);
+        break;
+      case "threeDuty1":
+        setThreeDuty1(e.target.value);
+        break;
+      case "threeDuty2":
+        setThreeDuty2(e.target.value);
+        break;
+      case "threeDuty3":
+        setThreeDuty3(e.target.value);
+        break;
+      case "threeDuty4":
+        setThreeDuty4(e.target.value);
+        break;
+
+      case "fourEmployer":
+        setFourEmployer(e.target.value);
+        break;
+      case "fourPosition":
+        setFourPosition(e.target.value);
+        break;
+      case "fourStartDate":
+        setFourStartDate(e.target.value);
+        break;
+      case "fourEndDate":
+        setFourEndDate(e.target.value);
+        break;
+      case "fourCity":
+        setFourCity(e.target.value);
+        break;
+      case "fourState":
+        setFourState(e.target.value);
+        break;
+      case "fourDuty1":
+        setFourDuty1(e.target.value);
+        break;
+      case "fourDuty2":
+        setFourDuty2(e.target.value);
+        break;
+      case "fourDuty3":
+        setFourDuty3(e.target.value);
+        break;
+      case "fourDuty4":
+        setFourDuty4(e.target.value);
+        break;
+    }
+  };
 
   function handleClickOpen() {
     setOpens(true);
