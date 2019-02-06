@@ -1,10 +1,10 @@
 import React from "react";
 import PrisonerDialogForm from "./PrisonerDialogForm";
 
-const PrisonerApp = () => {
+const PrisonerApp = props => {
   return (
     <div>
-      <PrisonerDialogForm />
+      <PrisonerDialogForm {...props} />
     </div>
   );
 };

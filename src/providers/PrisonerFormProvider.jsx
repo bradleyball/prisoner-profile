@@ -67,7 +67,7 @@ export const PrisonerFormProvider = props => {
   const [oneCity, setOneCity] = useState("");
   const [oneState, setOneState] = useState("");
   const [oneDuty1, setOneDuty1] = useState("");
-  const [oneDuty2, , setOneDuty2] = useState("");
+  const [oneDuty2, setOneDuty2] = useState("");
   const [oneDuty3, setOneDuty3] = useState("");
   const [oneDuty4, setOneDuty4] = useState("");
   const [twoEmployer, setTwoEmployer] = useState("");
@@ -77,7 +77,7 @@ export const PrisonerFormProvider = props => {
   const [twoCity, setTwoCity] = useState("");
   const [twoState, setTwoState] = useState("");
   const [twoDuty1, setTwoDuty1] = useState("");
-  const [twoDuty2, , setTwoDuty2] = useState("");
+  const [twoDuty2, setTwoDuty2] = useState("");
   const [twoDuty3, setTwoDuty3] = useState("");
   const [twoDuty4, setTwoDuty4] = useState("");
   const [threeEmployer, setThreeEmployer] = useState("");
@@ -87,7 +87,7 @@ export const PrisonerFormProvider = props => {
   const [threeCity, setThreeCity] = useState("");
   const [threeState, setThreeState] = useState("");
   const [threeDuty1, setThreeDuty1] = useState("");
-  const [threeDuty2, , setThreeDuty2] = useState("");
+  const [threeDuty2, setThreeDuty2] = useState("");
   const [threeDuty3, setThreeDuty3] = useState("");
   const [threeDuty4, setThreeDuty4] = useState("");
   const [fourEmployer, setFourEmployer] = useState("");
@@ -97,7 +97,7 @@ export const PrisonerFormProvider = props => {
   const [fourCity, setFourCity] = useState("");
   const [fourState, setFourState] = useState("");
   const [fourDuty1, setFourDuty1] = useState("");
-  const [fourDuty2, , setFourDuty2] = useState("");
+  const [fourDuty2, setFourDuty2] = useState("");
   const [fourDuty3, setFourDuty3] = useState("");
   const [fourDuty4, setFourDuty4] = useState("");
 

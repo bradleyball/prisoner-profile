@@ -1,6 +1,7 @@
 /* eslint-disable default-case */
 /**@jsx jsx */
 import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -292,14 +293,16 @@ function PrisonPost(props) {
                   )}
                   <div className="space" />
                   {!editing && (
-                    <Button
-                      color="primary"
-                      variant="raised"
-                      size="small"
-                      className="btn"
-                    >
-                      View Profile
-                    </Button>
+                    <Link to={`/prisoner-posts/${props.id}`}>
+                      <Button
+                        color="primary"
+                        variant="raised"
+                        size="small"
+                        className="btn"
+                      >
+                        View Profile
+                      </Button>
+                    </Link>
                   )}
                 </div>
               </div>

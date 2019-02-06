@@ -10,7 +10,9 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import { withStyles } from "@material-ui/core/styles";
 import "../../App.css";
+import withUser from "./withUser";
 import { auth, firestore } from "../../firebase";
+import { withRouter } from "react-router-dom";
 import {
   PrisonerNameContext,
   PrisonerAgeContext,
@@ -61,7 +63,7 @@ import {
   FourDuty2Context,
   FourDuty3Context,
   FourDuty4Context
-} from "../../providers/PrisonFormProvider";
+} from "../../providers/PrisonerFormProvider";
 
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -86,8 +88,8 @@ const styles = theme => ({
 function PrisonerDialogForm(props) {
   // ******************************************  State Hooks created in componet *********************************
 
-  const [openDialog, setOpenDialog] = useState(false);
-  const [openSelect, setOpenSelect] = useState(false);
+  const [handleDialog, setHandleDialog] = useState(false);
+  const [handleSelect, setHandleSelect] = useState(false);
 
   // *********************************************************************************************************************************************
   // ******************************************************* Misc Context ****************************************
@@ -312,6 +314,11 @@ function PrisonerDialogForm(props) {
 
   const prisonerSubmit = event => {
     event.preventDefault();
+    const postId = props.match.params.id;
+
+    const postRef = firestore.doc(`posts/${postId}`);
+
+    const prisonerRef = postRef.collection("prisoner-post");
 
     const { uid, displayName, email, photoURL } = auth.currentUser || {};
     const post = {
@@ -390,29 +397,20 @@ function PrisonerDialogForm(props) {
       createdAt: new Date()
     };
 
-    firestore
-      .collection("posts")
-      .collection("prisonerProfilePosts")
-      .add(post);
-    closeDialog();
+    prisonerRef.add(post);
+    clickDialog();
   };
   // *******************************************************************************************************************************************************
   //**************************************   Opening and Closing functions */
 
-  function openDialog() {
-    setOpenDialog(true);
+  function clickDialog() {
+    setHandleDialog(!handleDialog);
   }
 
-  function closeDialog() {
-    setOpenDialog(false);
-  }
+  const clickSelect = () => {
+    setHandleSelect(!handleSelect);
+  };
 
-  const openSelect = () => {
-    setOpenSelect(true);
-  };
-  const closeSelect = () => {
-    setOpenSelect(true);
-  };
   // **********************************************************************************************************************************************************
   // classes to use styles in material ui
   const { classes } = props;
@@ -426,7 +424,7 @@ function PrisonerDialogForm(props) {
             color="primary"
             aria-label="Add"
             className={`${classes.fab} prison-fab-button`}
-            onClick={openDialog}
+            onClick={clickDialog}
           >
             <AddIcon />
           </Fab>
@@ -434,8 +432,8 @@ function PrisonerDialogForm(props) {
         </div>
       </div>
       <Dialog
-        open={openDialog}
-        onClose={closeDialog}
+        open={handleDialog}
+        onClose={clickDialog}
         aria-labelledby="form-dialog-title"
       >
         <form onSubmit={prisonerSubmit}>
@@ -462,9 +460,8 @@ function PrisonerDialogForm(props) {
               label="Gender"
               name="prisonerGender"
               value={prisonerGender}
-              open={openSelect}
-              onClose={closeSelect}
-              onOpen={openSelect}
+              open={handleSelect}
+              onClose={clickSelect}
               onChange={handlePrisonerChanges}
             >
               <MenuItem value="male">Male</MenuItem>
@@ -477,9 +474,8 @@ function PrisonerDialogForm(props) {
               value={prisonerPermissions}
               name="prisonerPermissions"
               label="Permissions"
-              open={openSelect}
-              onClose={closeSelect}
-              onOpen={openSelect}
+              open={handleSelect}
+              onClose={clickSelect}
               onChange={handlePrisonerChanges}
             >
               <MenuItem value="male">Can only work in prison.</MenuItem>
@@ -520,7 +516,7 @@ function PrisonerDialogForm(props) {
             />
             <TextField
               label="Skills"
-              name="skill3"
+              name="skill4"
               value={skill4}
               onChange={handlePrisonerChanges}
             />
@@ -560,6 +556,7 @@ function PrisonerDialogForm(props) {
               label="End Date"
               type="date"
               defaultValue="yyyy-mm-dd"
+              onChange={handlePrisonerChanges}
               name="oneEndDate"
               value={oneEndDate}
               className={classes.textField}
@@ -607,307 +604,262 @@ function PrisonerDialogForm(props) {
               onChange={handlePrisonerChanges}
             />
 
-            {/******************************************************************** Second Previous Experience                   *********/}
+            {/***************************************************************** Second Previous Experience                   *********/}
+            <DialogTitle id="form-dialog-title">
+              Previous Work Experience
+            </DialogTitle>
+
             <TextField
-              margin="dense"
-              id="name"
               label="Company/Employer"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              name="twoEmployer"
+              value={twoEmployer}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              margin="dense"
-              id="name"
-              label="Position"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Title"
+              name="twoPosition"
+              value={twoPosition}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              id="date"
               label="Start Date"
+              name="twoStartDate"
+              value={twoStartDate}
+              onChange={handlePrisonerChanges}
               type="date"
-              defaultValue="2017-05-24"
+              defaultValue="yyyy-mm-dd"
               className={classes.textField}
               InputLabelProps={{
                 shrink: true
               }}
             />
             <TextField
-              id="date"
               label="End Date"
               type="date"
-              defaultValue="2017-05-24"
+              defaultValue="yyyy-mm-dd"
+              name="twoEndDate"
+              value={twoEndDate}
+              onChange={handlePrisonerChanges}
               className={classes.textField}
               InputLabelProps={{
                 shrink: true
               }}
             />
             <TextField
-              margin="dense"
-              id="name"
               label="City of Employment"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              name="twoCity"
+              value={twoCity}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              margin="dense"
-              id="name"
               label="State of Employment"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              name="twoState"
+              value={twoState}
+              onChange={handlePrisonerChanges}
             />
             <TextField
-              margin="dense"
-              id="name"
-              label="Duties"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Responsibilities (Short Sentence)"
+              name="twoDuty1"
+              value={twoDuty1}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              margin="dense"
-              id="name"
-              label="Duties"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Responsibilities (Short Sentence)"
+              name="twoDuty2"
+              value={twoDuty2}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              margin="dense"
-              id="name"
-              label="Duties"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Responsibilities (Short Sentence)"
+              name="twoDuty3"
+              value={twoDuty3}
+              onChange={handlePrisonerChanges}
             />
             <TextField
-              margin="dense"
-              id="name"
-              label="Duties"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Responsibilities (Short Sentence)"
+              name="twoDuty4"
+              value={twoDuty4}
+              onChange={handlePrisonerChanges}
             />
 
             {/******************************************************************** Third Previous Experience                   *********/}
+            <DialogTitle id="form-dialog-title">
+              Previous Work Experience
+            </DialogTitle>
+
             <TextField
-              margin="dense"
-              id="name"
               label="Company/Employer"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              name="threeEmployer"
+              value={threeEmployer}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              margin="dense"
-              id="name"
-              label="Position"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Title"
+              name="threePosition"
+              value={threePosition}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              id="date"
               label="Start Date"
+              name="threeStartDate"
+              value={threeStartDate}
+              onChange={handlePrisonerChanges}
               type="date"
-              defaultValue="2017-05-24"
+              defaultValue="yyyy-mm-dd"
               className={classes.textField}
               InputLabelProps={{
                 shrink: true
               }}
             />
             <TextField
-              id="date"
               label="End Date"
               type="date"
-              defaultValue="2017-05-24"
+              defaultValue="yyyy-mm-dd"
+              name="threeEndDate"
+              value={threeEndDate}
+              onChange={handlePrisonerChanges}
               className={classes.textField}
               InputLabelProps={{
                 shrink: true
               }}
             />
             <TextField
-              margin="dense"
-              id="name"
               label="City of Employment"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              name="threeCity"
+              value={threeCity}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              margin="dense"
-              id="name"
               label="State of Employment"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              name="threeState"
+              value={threeState}
+              onChange={handlePrisonerChanges}
             />
             <TextField
-              margin="dense"
-              id="name"
-              label="Duties"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Responsibilities (Short Sentence)"
+              name="threeDuty1"
+              value={threeDuty1}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              margin="dense"
-              id="name"
-              label="Duties"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Responsibilities (Short Sentence)"
+              name="threeDuty2"
+              value={threeDuty2}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              margin="dense"
-              id="name"
-              label="Duties"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Responsibilities (Short Sentence)"
+              name="threeDuty3"
+              value={threeDuty3}
+              onChange={handlePrisonerChanges}
             />
             <TextField
-              margin="dense"
-              id="name"
-              label="Duties"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Responsibilities (Short Sentence)"
+              name="threeDuty4"
+              value={threeDuty4}
+              onChange={handlePrisonerChanges}
             />
+
             {/******************************************************************** Fourth Previous Experience                   *********/}
+            <DialogTitle id="form-dialog-title">
+              Previous Work Experience
+            </DialogTitle>
+
             <TextField
-              margin="dense"
-              id="name"
               label="Company/Employer"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              name="fourEmployer"
+              value={fourEmployer}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              margin="dense"
-              id="name"
-              label="Position"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Title"
+              name="fourPosition"
+              value={fourPosition}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              id="date"
               label="Start Date"
+              name="fourStartDate"
+              value={fourStartDate}
+              onChange={handlePrisonerChanges}
               type="date"
-              defaultValue="2017-05-24"
+              defaultValue="yyyy-mm-dd"
               className={classes.textField}
               InputLabelProps={{
                 shrink: true
               }}
             />
             <TextField
-              id="date"
               label="End Date"
               type="date"
-              defaultValue="2017-05-24"
+              defaultValue="yyyy-mm-dd"
+              name="fourEndDate"
+              value={fourEndDate}
+              onChange={handlePrisonerChanges}
               className={classes.textField}
               InputLabelProps={{
                 shrink: true
               }}
             />
             <TextField
-              margin="dense"
-              id="name"
               label="City of Employment"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              name="fourCity"
+              value={fourCity}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              margin="dense"
-              id="name"
               label="State of Employment"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              name="fourState"
+              value={fourState}
+              onChange={handlePrisonerChanges}
             />
             <TextField
-              margin="dense"
-              id="name"
-              label="Duties"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Responsibilities (Short Sentence)"
+              name="fourDuty1"
+              value={fourDuty1}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              margin="dense"
-              id="name"
-              label="Duties"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Responsibilities (Short Sentence)"
+              name="fourDuty2"
+              value={fourDuty2}
+              onChange={handlePrisonerChanges}
             />
 
             <TextField
-              margin="dense"
-              id="name"
-              label="Duties"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Responsibilities (Short Sentence)"
+              name="fourDuty3"
+              value={fourDuty3}
+              onChange={handlePrisonerChanges}
             />
             <TextField
-              margin="dense"
-              id="name"
-              label="Duties"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleChanges}
-              fullWidth
+              label="Job Responsibilities (Short Sentence)"
+              name="fourDuty4"
+              value={fourDuty4}
+              onChange={handlePrisonerChanges}
             />
+
+            {/* ********************************************************************************************************* */}
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="primary">
+            <Button onClick={clickDialog} color="primary">
               Cancel
             </Button>
-            <Button onSubmit={handleSubmit} type="submit" color="primary">
+            <Button onSubmit={prisonerSubmit} type="submit" color="primary">
               Submit
             </Button>
           </DialogActions>
@@ -917,4 +869,4 @@ function PrisonerDialogForm(props) {
   );
 }
 
-export default withStyles(styles)(PrisonerDialogForm);
+export default withRouter(withUser(withStyles(styles)(PrisonerDialogForm)));
