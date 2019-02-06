@@ -869,4 +869,4 @@ function PrisonerDialogForm(props) {
   );
 }
 
-export default withRouter(withUser(withStyles(styles)(PrisonerDialogForm)));
+export default withStyles(styles)(PrisonerDialogForm);

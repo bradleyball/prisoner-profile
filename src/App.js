@@ -19,7 +19,7 @@ const App = () => {
       <Route
         exact
         path="/prisoner-posts/:id"
-        render={props => <PrisonerDialogForm {...props} />}
+        render={props => <PrisonerApp {...props} />}
       />
     </div>
   );
