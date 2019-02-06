@@ -6,10 +6,11 @@ import withUser from "./withUser";
 import { withRouter } from "react-router-dom";
 import firebase from "firebase/app";
 import { async } from "@firebase/util";
+import Prisoners from "./Prisoners";
 
 class PrisonerApp extends React.Component {
   state = {
-    prisonPost: []
+    prisonerPost: []
   };
   get postId() {
     return this.props.match.params.id;
@@ -25,7 +26,7 @@ class PrisonerApp extends React.Component {
   componentDidMount = async () => {
     this.unsubscribeFromPost = this.prisonerRef.onSnapshot(snapshot => {
       const post = snapshot.docs.map(collectIdsAndData);
-      this.setState({ prisonPost: post });
+      this.setState({ prisonerPost: post });
     });
   };
 
@@ -36,8 +37,9 @@ class PrisonerApp extends React.Component {
   render() {
     return (
       <div>
-        {console.log(this.state.prisonPost)}
-        <PrisonerDialogForm />
+        {console.log(this.state.prisonerPost)}
+        <PrisonerDialogForm postId={this.postId} />
+        <Prisoners prisonerPost={this.state.prisonerPost} />
       </div>
     );
   }

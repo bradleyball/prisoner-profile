@@ -314,7 +314,7 @@ function PrisonerDialogForm(props) {
 
   const prisonerSubmit = event => {
     event.preventDefault();
-    const postId = props.match.params.id;
+    const postId = props.postId;
 
     const postRef = firestore.doc(`posts/${postId}`);
 
@@ -464,9 +464,9 @@ function PrisonerDialogForm(props) {
               onClose={clickSelect}
               onChange={handlePrisonerChanges}
             >
-              <MenuItem value="male">Male</MenuItem>
-              <MenuItem value="female">Female</MenuItem>
-              <MenuItem value="other">Other</MenuItem>
+              <MenuItem value="Male">Male</MenuItem>
+              <MenuItem value="Female">Female</MenuItem>
+              <MenuItem value="N/A">Other</MenuItem>
             </TextField>
             <TextField
               className={classes.formControl}
@@ -478,8 +478,12 @@ function PrisonerDialogForm(props) {
               onClose={clickSelect}
               onChange={handlePrisonerChanges}
             >
-              <MenuItem value="male">Can only work in prison.</MenuItem>
-              <MenuItem value="female">Has permission for work leave.</MenuItem>
+              <MenuItem value="✗ Does not have permission to work outside of prison.">
+                ✗ Does not have permission for work leave
+              </MenuItem>
+              <MenuItem value="✓ Has permission for work leave">
+                ✓ Has permission for work leave.
+              </MenuItem>
             </TextField>
             {/* ******************************************************************* Skills Section ********************************** */}
 
