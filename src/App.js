@@ -10,7 +10,7 @@ import PrisonerDialogForm from "./components/Prisoner/PrisonerDialogForm";
 const App = () => {
   const user = useContext(UserContext);
   return (
-    <div className="App">
+    <div>
       <NavBar />
 
       {user && <Route exact path="/" component={PrisonDialogForm} />}
