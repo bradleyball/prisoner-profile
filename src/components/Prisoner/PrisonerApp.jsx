@@ -39,7 +39,10 @@ class PrisonerApp extends React.Component {
       <div>
         {console.log(this.state.prisonerPost)}
         <PrisonerDialogForm postId={this.postId} />
-        <Prisoners prisonerPost={this.state.prisonerPost} />
+        <Prisoners
+          prisonerPost={this.state.prisonerPost}
+          postId={this.postId}
+        />
       </div>
     );
   }

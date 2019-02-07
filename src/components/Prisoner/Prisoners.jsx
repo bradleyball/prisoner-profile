@@ -19,7 +19,12 @@ const Prisoners = props => {
       {props.prisonerPost.map(post => (
         <Grid item md={3} justify="center">
           {" "}
-          <Prisoner {...post} editing2={editing2} setEditing2={setEditing2} />
+          <Prisoner
+            {...post}
+            postId={props.postId}
+            editing2={editing2}
+            setEditing2={setEditing2}
+          />
         </Grid>
       ))}
 
