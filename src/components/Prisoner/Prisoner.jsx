@@ -32,7 +32,60 @@ import {
   dutyCheck4
 } from "../../utilities";
 import PrisonerDeleteDialog from "./PrisonerDeleteDialog";
-
+import {
+  PrisonerNameContext,
+  PrisonerAgeContext,
+  PrisonerGenderContext,
+  PrisonerPermissionsContext,
+  SummaryContext,
+  Skill1Context,
+  Skill2Context,
+  Skill3Context,
+  Skill4Context,
+  OneEmployerContext,
+  OnePositionContext,
+  OneStartDateContext,
+  OneEndDateContext,
+  OneCityContext,
+  OneStateContext,
+  OneDuty1Context,
+  OneDuty2Context,
+  OneDuty3Context,
+  OneDuty4Context,
+  TwoEmployerContext,
+  TwoPositionContext,
+  TwoStartDateContext,
+  TwoEndDateContext,
+  TwoCityContext,
+  TwoStateContext,
+  TwoDuty1Context,
+  TwoDuty2Context,
+  TwoDuty3Context,
+  TwoDuty4Context,
+  ThreeEmployerContext,
+  ThreePositionContext,
+  ThreeStartDateContext,
+  ThreeEndDateContext,
+  ThreeCityContext,
+  ThreeStateContext,
+  ThreeDuty1Context,
+  ThreeDuty2Context,
+  ThreeDuty3Context,
+  ThreeDuty4Context,
+  FourEmployerContext,
+  FourPositionContext,
+  FourStartDateContext,
+  FourEndDateContext,
+  FourCityContext,
+  FourStateContext,
+  FourDuty1Context,
+  FourDuty2Context,
+  FourDuty3Context,
+  FourDuty4Context,
+  PrisonerEditContext,
+  PrisonerProfileIdContext
+} from "../../providers/PrisonerFormProvider";
+/***************************************************************** emotion css ******** */
 const prisonerIcon = css`
   height: 50px;
   width: 50px;
@@ -86,13 +139,179 @@ const listText = css`
   max-width: 100%;
   display: block;
 `;
-
+/********************************************   FUNCTION START  ******************************* */
 const Prisoner = props => {
+  /**********************************************  State ****************************** */
+
   const [expanded, setExpanded] = React.useState(false);
+  /***********************************************  Context State  ******************************** */
   const currentUser = useContext(UserContext);
+  const { prisonerProfileId, setPrisonerProfileId } = useContext(
+    PrisonerProfileIdContext
+  );
+  const { prisonerEdit, setPrisonerEdit } = useContext(PrisonerEditContext);
+  const { prisonerName, setPrisonerName } = useContext(PrisonerNameContext);
+  const { prisonerAge, setPrisonerAge } = useContext(PrisonerAgeContext);
+  const { prisonerGender, setPrisonerGender } = useContext(
+    PrisonerGenderContext
+  );
+  const { prisonerPermissions, setPrisonerPermissions } = useContext(
+    PrisonerPermissionsContext
+  );
+  const { summary, setSummary } = useContext(SummaryContext);
+  const { skill1, setSkill1 } = useContext(Skill1Context);
+  const { skill2, setSkill2 } = useContext(Skill2Context);
+  const { skill3, setSkill3 } = useContext(Skill3Context);
+  const { skill4, setSkill4 } = useContext(Skill4Context);
+  const { oneEmployer, setOneEmployer } = useContext(OneEmployerContext);
+  const { onePosition, setOnePosition } = useContext(OnePositionContext);
+  const { oneStartDate, setOneStartDate } = useContext(OneStartDateContext);
+  const { oneEndDate, setOneEndDate } = useContext(OneEndDateContext);
+  const { oneCity, setOneCity } = useContext(OneCityContext);
+  const { oneState, setOneState } = useContext(OneStateContext);
+  const { oneDuty1, setOneDuty1 } = useContext(OneDuty1Context);
+  const { oneDuty2, setOneDuty2 } = useContext(OneDuty2Context);
+  const { oneDuty3, setOneDuty3 } = useContext(OneDuty3Context);
+  const { oneDuty4, setOneDuty4 } = useContext(OneDuty4Context);
+  const { twoEmployer, setTwoEmployer } = useContext(TwoEmployerContext);
+  const { twoPosition, setTwoPosition } = useContext(TwoPositionContext);
+  const { twoStartDate, setTwoStartDate } = useContext(TwoStartDateContext);
+  const { twoEndDate, setTwoEndDate } = useContext(TwoEndDateContext);
+  const { twoCity, setTwoCity } = useContext(TwoCityContext);
+  const { twoState, setTwoState } = useContext(TwoStateContext);
+  const { twoDuty1, setTwoDuty1 } = useContext(TwoDuty1Context);
+  const { twoDuty2, setTwoDuty2 } = useContext(TwoDuty2Context);
+  const { twoDuty3, setTwoDuty3 } = useContext(TwoDuty3Context);
+  const { twoDuty4, setTwoDuty4 } = useContext(TwoDuty4Context);
+  const { threeEmployer, setThreeEmployer } = useContext(ThreeEmployerContext);
+  const { threePosition, setThreePosition } = useContext(ThreePositionContext);
+  const { threeStartDate, setThreeStartDate } = useContext(
+    ThreeStartDateContext
+  );
+  const { threeEndDate, setThreeEndDate } = useContext(ThreeEndDateContext);
+  const { threeCity, setThreeCity } = useContext(ThreeCityContext);
+  const { threeState, setThreeState } = useContext(ThreeStateContext);
+  const { threeDuty1, setThreeDuty1 } = useContext(ThreeDuty1Context);
+  const { threeDuty2, setThreeDuty2 } = useContext(ThreeDuty2Context);
+  const { threeDuty3, setThreeDuty3 } = useContext(ThreeDuty3Context);
+  const { threeDuty4, setThreeDuty4 } = useContext(ThreeDuty4Context);
+  const { fourEmployer, setFourEmployer } = useContext(FourEmployerContext);
+  const { fourPosition, setFourPosition } = useContext(FourPositionContext);
+  const { fourStartDate, setFourStartDate } = useContext(FourStartDateContext);
+  const { fourEndDate, setFourEndDate } = useContext(FourEndDateContext);
+  const { fourCity, setFourCity } = useContext(FourCityContext);
+  const { fourState, setFourState } = useContext(FourStateContext);
+  const { fourDuty1, setFourDuty1 } = useContext(FourDuty1Context);
+  const { fourDuty2, setFourDuty2 } = useContext(FourDuty2Context);
+  const { fourDuty3, setFourDuty3 } = useContext(FourDuty3Context);
+  const { fourDuty4, setFourDuty4 } = useContext(FourDuty4Context);
+
+  /*****************************************   Expand and Edit  ************************************************* */
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const editClick = () => {
+    setPrisonerProfileId(props.id);
+    setPrisonerEdit(true);
+    props.dialogClick();
+    setPrisonerName(props.generalInfo.prisonerName);
+
+    setPrisonerAge(props.generalInfo.prisonerAge);
+
+    setPrisonerPermissions(props.generalInfo.prisonerPermissions);
+
+    setSummary(props.skills.summary);
+
+    setSkill1(props.skills.skill1);
+
+    setSkill2(props.skills.skill2);
+
+    setSkill3(props.skills.skill3);
+
+    setSkill4(props.skills.skill4);
+
+    setOneEmployer(props.workExperience1.oneEmployer);
+
+    setOnePosition(props.workExperience1.onePosition);
+
+    setOneStartDate(props.workExperience1.oneStartDate);
+
+    setOneEndDate(props.workExperience1.oneEndDate);
+
+    setOneCity(props.workExperience1.oneCity);
+
+    setOneState(props.workExperience1.oneState);
+
+    setOneDuty1(props.workExperience1.oneDuty1);
+
+    setOneDuty2(props.workExperience1.oneDuty2);
+
+    setOneDuty3(props.workExperience1.oneDuty3);
+
+    setOneDuty4(props.workExperience1.oneDuty4);
+
+    setTwoEmployer(props.workExperience2.twoEmployer);
+
+    setTwoPosition(props.workExperience2.twoPosition);
+
+    setTwoStartDate(props.workExperience2.twoStartDate);
+
+    setTwoEndDate(props.workExperience2.twoEndDate);
+
+    setTwoCity(props.workExperience2.twoCity);
+
+    setTwoState(props.workExperience2.twoState);
+
+    setTwoDuty1(props.workExperience2.twoDuty1);
+
+    setTwoDuty2(props.workExperience2.twoDuty2);
+
+    setTwoDuty3(props.workExperience2.twoDuty3);
+
+    setTwoDuty4(props.workExperience2.twoDuty4);
+
+    setThreeEmployer(props.workExperience3.threeEmployer);
+
+    setThreePosition(props.workExperience3.threePosition);
+
+    setThreeStartDate(props.workExperience3.threeStartDate);
+
+    setThreeEndDate(props.workExperience3.threeEndDate);
+
+    setThreeCity(props.workExperience3.threeCity);
+
+    setThreeState(props.workExperience3.threeState);
+
+    setThreeDuty1(props.workExperience3.threeDuty1);
+
+    setThreeDuty2(props.workExperience3.threeDuty2);
+
+    setThreeDuty3(props.workExperience3.threeDuty3);
+
+    setThreeDuty4(props.workExperience3.threeDuty4);
+
+    setFourEmployer(props.workExperience4.fourEmployer);
+
+    setFourPosition(props.workExperience4.fourPosition);
+
+    setFourStartDate(props.workExperience4.fourStartDate);
+
+    setFourEndDate(props.workExperience4.fourEndDate);
+
+    setFourCity(props.workExperience4.fourCity);
+
+    setFourState(props.workExperience4.fourState);
+
+    setFourDuty1(props.workExperience4.fourDuty1);
+
+    setFourDuty2(props.workExperience4.fourDuty2);
+
+    setFourDuty3(props.workExperience4.fourDuty3);
+
+    setFourDuty4(props.workExperience4.fourDuty4);
+  };
+
   /***********************************   functions to undisplay previous experience if its empty ********  */
   let a = bagel(props.skills);
   const summaryCheck =
@@ -196,9 +415,27 @@ const Prisoner = props => {
           font-size: 10px;
         `;
 
-  let comma =
+  let comma1 =
     props.workExperience1.oneCity === "" ||
     props.workExperience1.oneState === ""
+      ? ""
+      : " , ";
+
+  let comma2 =
+    props.workExperience2.twoCity === "" ||
+    props.workExperience2.twoState === ""
+      ? ""
+      : " , ";
+
+  let comma3 =
+    props.workExperience3.threeCity === "" ||
+    props.workExperience3.threeState === ""
+      ? ""
+      : " , ";
+
+  let comma4 =
+    props.workExperience4.fourCity === "" ||
+    props.workExperience4.fourState === ""
       ? ""
       : " , ";
 
@@ -250,7 +487,7 @@ const Prisoner = props => {
         `;
 
   let d2w2 =
-    props.workExperience2.twoDuty1 === ""
+    props.workExperience2.twoDuty2 === ""
       ? css`
           display: none;
         `
@@ -422,6 +659,10 @@ const Prisoner = props => {
       display: "grid",
       justifyContent: "center",
       lineHeight: 1
+    },
+    bottomCollapse: {
+      display: "grid",
+      justifyContent: "flex-end"
     }
   }));
   const classes = useStyles();
@@ -439,7 +680,7 @@ const Prisoner = props => {
       {console.log(props.id)}
       {belongsToCurrentUser(currentUser, user) && (
         <div className="edit-delete-container">
-          <div className="edit-wrapper" onClick={() => {}}>
+          <div className="edit-wrapper" onClick={() => editClick()}>
             <span className="edit-icon">edit</span>
             <img src={require("../Images/pedit.png")} alt="edit" />
           </div>
@@ -608,7 +849,7 @@ const Prisoner = props => {
                 <List dense>
                   <ListItem>
                     <ListItemText
-                      primary={`${props.workExperience1.oneCity}${comma}${
+                      primary={`${props.workExperience1.oneCity}${comma1}${
                         props.workExperience1.oneState
                       }`}
                       secondary={
@@ -654,12 +895,12 @@ const Prisoner = props => {
                 <List dense>
                   <ListItem>
                     <ListItemText
-                      primary={`${props.workExperience2.twoCity} , ${
+                      primary={`${props.workExperience2.twoCity}  ${
                         props.workExperience2.twoState
                       }`}
                       secondary={
                         <Typography css={date2}>
-                          {`${props.workExperience2.twoStartDate} , ${
+                          {`${props.workExperience2.twoStartDate}${comma2}${
                             props.workExperience2.twoEndDate
                           }`}
                         </Typography>
@@ -701,7 +942,7 @@ const Prisoner = props => {
                 <List dense>
                   <ListItem>
                     <ListItemText
-                      primary={`${props.workExperience3.threeCity} , ${
+                      primary={`${props.workExperience3.threeCity}${comma3}${
                         props.workExperience3.threeState
                       }`}
                       secondary={
@@ -748,7 +989,7 @@ const Prisoner = props => {
                 <List dense>
                   <ListItem>
                     <ListItemText
-                      primary={`${props.workExperience4.fourCity} , ${
+                      primary={`${props.workExperience4.fourCity}${comma4}${
                         props.workExperience4.fourState
                       }`}
                       secondary={
@@ -781,6 +1022,19 @@ const Prisoner = props => {
 
             {/* *****************************************************   ****************************************************************** */}
           </CardContent>
+
+          <CardActions className={classes.bottomCollapse} disableActionSpacing>
+            <IconButton
+              className={classnames(classes.expand, {
+                [classes.expandOpen]: expanded
+              })}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="Show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          </CardActions>
         </Collapse>
       </Card>
     </div>

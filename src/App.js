@@ -6,11 +6,12 @@ import { UserContext } from "./providers/UserProvider";
 import { Route } from "react-router-dom";
 import PrisonerApp from "./components/Prisoner/PrisonerApp";
 import PrisonerDialogForm from "./components/Prisoner/PrisonerDialogForm";
+import { css, jsx } from "@emotion/core";
 
 const App = () => {
   const user = useContext(UserContext);
   return (
-    <div>
+    <div className="App">
       <NavBar />
 
       {user && <Route exact path="/" component={PrisonDialogForm} />}

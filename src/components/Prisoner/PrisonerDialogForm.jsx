@@ -14,6 +14,7 @@ import withUser from "./withUser";
 import { auth, firestore } from "../../firebase";
 import { withRouter } from "react-router-dom";
 import {
+  PrisonerEditContext,
   PrisonerNameContext,
   PrisonerAgeContext,
   PrisonerGenderContext,
@@ -62,7 +63,8 @@ import {
   FourDuty1Context,
   FourDuty2Context,
   FourDuty3Context,
-  FourDuty4Context
+  FourDuty4Context,
+  PrisonerProfileIdContext
 } from "../../providers/PrisonerFormProvider";
 
 import InputLabel from "@material-ui/core/InputLabel";
@@ -82,13 +84,15 @@ const styles = theme => ({
   formControl: {
     margin: theme.spacing.unit,
     minWidth: 120
+  },
+  fixed: {
+    position: "fixed"
   }
 });
 // ****************************************************************************************************************************************
 function PrisonerDialogForm(props) {
   // ******************************************  State Hooks created in componet *********************************
 
-  const [handleDialog, setHandleDialog] = useState(false);
   const [handleSelect, setHandleSelect] = useState(false);
 
   // *********************************************************************************************************************************************
@@ -98,7 +102,10 @@ function PrisonerDialogForm(props) {
   //   ******************************************************************************************************************************************************
 
   // ********************************************** All of the state for the form ***********************
-
+  const { prisonerProfileId, setPrisonerProfileId } = useContext(
+    PrisonerProfileIdContext
+  );
+  const { prisonerEdit, setPrisonerEdit } = useContext(PrisonerEditContext);
   const { prisonerName, setPrisonerName } = useContext(PrisonerNameContext);
   const { prisonerAge, setPrisonerAge } = useContext(PrisonerAgeContext);
   const { prisonerGender, setPrisonerGender } = useContext(
@@ -396,17 +403,114 @@ function PrisonerDialogForm(props) {
 
       createdAt: new Date()
     };
+    prisonerEdit
+      ? prisonerRef.doc(prisonerProfileId).update(post)
+      : prisonerRef.add(post);
 
-    prisonerRef.add(post);
+    setPrisonerEdit(false);
 
-    clickDialog();
+    props.dialogClick();
+
+    setPrisonerName("");
+
+    setPrisonerAge("");
+
+    setPrisonerGender("");
+
+    setPrisonerPermissions("");
+
+    setSummary("");
+
+    setSkill1("");
+
+    setSkill2("");
+
+    setSkill3("");
+
+    setSkill4("");
+
+    setOneEmployer("");
+
+    setOnePosition("");
+
+    setOneStartDate("");
+
+    setOneEndDate("");
+
+    setOneCity("");
+
+    setOneState("");
+
+    setOneDuty1("");
+
+    setOneDuty2("");
+
+    setOneDuty3("");
+
+    setOneDuty4("");
+
+    setTwoEmployer("");
+
+    setTwoPosition("");
+
+    setTwoStartDate("");
+
+    setTwoEndDate("");
+
+    setTwoCity("");
+
+    setTwoState("");
+
+    setTwoDuty1("");
+
+    setTwoDuty2("");
+
+    setTwoDuty3("");
+
+    setTwoDuty4("");
+
+    setThreeEmployer("");
+
+    setThreePosition("");
+
+    setThreeStartDate("");
+
+    setThreeEndDate("");
+
+    setThreeCity("");
+
+    setThreeState("");
+
+    setThreeDuty1("");
+
+    setThreeDuty2("");
+
+    setThreeDuty3("");
+
+    setThreeDuty4("");
+
+    setFourEmployer("");
+
+    setFourPosition("");
+
+    setFourStartDate("");
+
+    setFourEndDate("");
+
+    setFourCity("");
+
+    setFourState("");
+
+    setFourDuty1("");
+
+    setFourDuty2("");
+
+    setFourDuty3("");
+
+    setFourDuty4("");
   };
   // *******************************************************************************************************************************************************
   //**************************************   Opening and Closing functions */
-
-  function clickDialog() {
-    setHandleDialog(!handleDialog);
-  }
 
   const clickSelect = () => {
     setHandleSelect(!handleSelect);
@@ -425,7 +529,7 @@ function PrisonerDialogForm(props) {
             color="primary"
             aria-label="Add"
             className={`${classes.fab} prison-fab-button`}
-            onClick={clickDialog}
+            onClick={props.dialogClick}
           >
             <AddIcon />
           </Fab>
@@ -433,8 +537,8 @@ function PrisonerDialogForm(props) {
         </div>
       </div>
       <Dialog
-        open={handleDialog}
-        onClose={clickDialog}
+        open={props.dialog}
+        onClose={props.dialogClick}
         aria-labelledby="form-dialog-title"
       >
         <form onSubmit={prisonerSubmit}>
@@ -444,18 +548,23 @@ function PrisonerDialogForm(props) {
           </DialogTitle>
           <DialogContent>
             <TextField
+              className={classes.formControl}
+              variant="filled"
               label="Name Of Worker"
               name="prisonerName"
               value={prisonerName}
               onChange={handlePrisonerChanges}
             />
             <TextField
+              className={classes.formControl}
+              variant="filled"
               label="Age"
               name="prisonerAge"
               onChange={handlePrisonerChanges}
               value={prisonerAge}
             />
             <TextField
+              variant="filled"
               className={classes.formControl}
               select
               label="Gender"
@@ -470,6 +579,7 @@ function PrisonerDialogForm(props) {
               <MenuItem value="N/A">Other</MenuItem>
             </TextField>
             <TextField
+              variant="filled"
               className={classes.formControl}
               select
               value={prisonerPermissions}
@@ -491,35 +601,48 @@ function PrisonerDialogForm(props) {
             <DialogTitle id="form-dialog-title">Skills</DialogTitle>
 
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               multiline
               rows="6"
               value={summary}
               label="Summary(Cover Letter)"
               name="summary"
               onChange={handlePrisonerChanges}
-              varient="outlined"
-              className={classes.textField}
             />
 
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Skills"
               name="skill1"
               value={skill1}
               onChange={handlePrisonerChanges}
             />
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Skills"
               name="skill2"
               value={skill2}
               onChange={handlePrisonerChanges}
             />
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Skills"
               name="skill3"
               value={skill3}
               onChange={handlePrisonerChanges}
             />
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Skills"
               name="skill4"
               value={skill4}
@@ -532,6 +655,9 @@ function PrisonerDialogForm(props) {
             </DialogTitle>
 
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Company/Employer"
               name="oneEmployer"
               value={oneEmployer}
@@ -539,6 +665,9 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Title"
               name="onePosition"
               value={onePosition}
@@ -546,30 +675,34 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              variant="filled"
+              className={classes.formControl}
               label="Start Date"
               name="oneStartDate"
               value={oneStartDate}
               onChange={handlePrisonerChanges}
               type="date"
               defaultValue="yyyy-mm-dd"
-              className={classes.textField}
               InputLabelProps={{
                 shrink: true
               }}
             />
             <TextField
+              variant="filled"
+              className={classes.formControl}
               label="End Date"
               type="date"
               defaultValue="yyyy-mm-dd"
               onChange={handlePrisonerChanges}
               name="oneEndDate"
               value={oneEndDate}
-              className={classes.textField}
               InputLabelProps={{
                 shrink: true
               }}
             />
             <TextField
+              variant="filled"
+              className={classes.formControl}
               label="City of Employment"
               name="oneCity"
               value={oneCity}
@@ -577,12 +710,17 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              variant="filled"
+              className={classes.formControl}
               label="State of Employment"
               name="oneState"
               value={oneState}
               onChange={handlePrisonerChanges}
             />
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Responsibilities (Short Sentence)"
               name="oneDuty1"
               value={oneDuty1}
@@ -590,6 +728,9 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Responsibilities (Short Sentence)"
               name="oneDuty2"
               value={oneDuty2}
@@ -597,12 +738,18 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Responsibilities (Short Sentence)"
               name="oneDuty3"
               value={oneDuty3}
               onChange={handlePrisonerChanges}
             />
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Responsibilities (Short Sentence)"
               name="oneDuty4"
               value={oneDuty4}
@@ -615,6 +762,9 @@ function PrisonerDialogForm(props) {
             </DialogTitle>
 
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Company/Employer"
               name="twoEmployer"
               value={twoEmployer}
@@ -622,6 +772,9 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Title"
               name="twoPosition"
               value={twoPosition}
@@ -629,30 +782,34 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              variant="filled"
+              className={classes.formControl}
               label="Start Date"
               name="twoStartDate"
               value={twoStartDate}
               onChange={handlePrisonerChanges}
               type="date"
               defaultValue="yyyy-mm-dd"
-              className={classes.textField}
               InputLabelProps={{
                 shrink: true
               }}
             />
             <TextField
+              variant="filled"
+              className={classes.formControl}
               label="End Date"
               type="date"
               defaultValue="yyyy-mm-dd"
               name="twoEndDate"
               value={twoEndDate}
               onChange={handlePrisonerChanges}
-              className={classes.textField}
               InputLabelProps={{
                 shrink: true
               }}
             />
             <TextField
+              variant="filled"
+              className={classes.formControl}
               label="City of Employment"
               name="twoCity"
               value={twoCity}
@@ -660,12 +817,17 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              variant="filled"
+              className={classes.formControl}
               label="State of Employment"
               name="twoState"
               value={twoState}
               onChange={handlePrisonerChanges}
             />
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Responsibilities (Short Sentence)"
               name="twoDuty1"
               value={twoDuty1}
@@ -673,6 +835,9 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Responsibilities (Short Sentence)"
               name="twoDuty2"
               value={twoDuty2}
@@ -680,12 +845,18 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Responsibilities (Short Sentence)"
               name="twoDuty3"
               value={twoDuty3}
               onChange={handlePrisonerChanges}
             />
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Responsibilities (Short Sentence)"
               name="twoDuty4"
               value={twoDuty4}
@@ -698,6 +869,9 @@ function PrisonerDialogForm(props) {
             </DialogTitle>
 
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Company/Employer"
               name="threeEmployer"
               value={threeEmployer}
@@ -705,6 +879,9 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Title"
               name="threePosition"
               value={threePosition}
@@ -712,30 +889,34 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              variant="filled"
+              className={classes.formControl}
               label="Start Date"
               name="threeStartDate"
               value={threeStartDate}
               onChange={handlePrisonerChanges}
               type="date"
               defaultValue="yyyy-mm-dd"
-              className={classes.textField}
               InputLabelProps={{
                 shrink: true
               }}
             />
             <TextField
+              variant="filled"
+              className={classes.formControl}
               label="End Date"
               type="date"
               defaultValue="yyyy-mm-dd"
               name="threeEndDate"
               value={threeEndDate}
               onChange={handlePrisonerChanges}
-              className={classes.textField}
               InputLabelProps={{
                 shrink: true
               }}
             />
             <TextField
+              variant="filled"
+              className={classes.formControl}
               label="City of Employment"
               name="threeCity"
               value={threeCity}
@@ -743,12 +924,17 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              variant="filled"
+              className={classes.formControl}
               label="State of Employment"
               name="threeState"
               value={threeState}
               onChange={handlePrisonerChanges}
             />
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Responsibilities (Short Sentence)"
               name="threeDuty1"
               value={threeDuty1}
@@ -756,6 +942,9 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Responsibilities (Short Sentence)"
               name="threeDuty2"
               value={threeDuty2}
@@ -763,12 +952,18 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Responsibilities (Short Sentence)"
               name="threeDuty3"
               value={threeDuty3}
               onChange={handlePrisonerChanges}
             />
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Responsibilities (Short Sentence)"
               name="threeDuty4"
               value={threeDuty4}
@@ -781,6 +976,9 @@ function PrisonerDialogForm(props) {
             </DialogTitle>
 
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Company/Employer"
               name="fourEmployer"
               value={fourEmployer}
@@ -788,6 +986,9 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Title"
               name="fourPosition"
               value={fourPosition}
@@ -795,30 +996,34 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              variant="filled"
+              className={classes.formControl}
               label="Start Date"
               name="fourStartDate"
               value={fourStartDate}
               onChange={handlePrisonerChanges}
               type="date"
               defaultValue="yyyy-mm-dd"
-              className={classes.textField}
               InputLabelProps={{
                 shrink: true
               }}
             />
             <TextField
+              variant="filled"
+              className={classes.formControl}
               label="End Date"
               type="date"
               defaultValue="yyyy-mm-dd"
               name="fourEndDate"
               value={fourEndDate}
               onChange={handlePrisonerChanges}
-              className={classes.textField}
               InputLabelProps={{
                 shrink: true
               }}
             />
             <TextField
+              variant="filled"
+              className={classes.formControl}
               label="City of Employment"
               name="fourCity"
               value={fourCity}
@@ -826,12 +1031,17 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              variant="filled"
+              className={classes.formControl}
               label="State of Employment"
               name="fourState"
               value={fourState}
               onChange={handlePrisonerChanges}
             />
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Responsibilities (Short Sentence)"
               name="fourDuty1"
               value={fourDuty1}
@@ -839,6 +1049,9 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Responsibilities (Short Sentence)"
               name="fourDuty2"
               value={fourDuty2}
@@ -846,12 +1059,18 @@ function PrisonerDialogForm(props) {
             />
 
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Responsibilities (Short Sentence)"
               name="fourDuty3"
               value={fourDuty3}
               onChange={handlePrisonerChanges}
             />
             <TextField
+              fullWidth
+              variant="filled"
+              className={classes.formControl}
               label="Job Responsibilities (Short Sentence)"
               name="fourDuty4"
               value={fourDuty4}
@@ -861,12 +1080,18 @@ function PrisonerDialogForm(props) {
             {/* ********************************************************************************************************* */}
           </DialogContent>
           <DialogActions>
-            <Button onClick={clickDialog} color="primary">
+            <Button onClick={props.dialogClick} color="primary">
               Cancel
             </Button>
-            <Button onSubmit={prisonerSubmit} type="submit" color="primary">
-              Submit
-            </Button>
+            {prisonerEdit ? (
+              <Button onSubmit={prisonerSubmit} type="submit" color="primary">
+                update
+              </Button>
+            ) : (
+              <Button onSubmit={prisonerSubmit} type="submit" color="primary">
+                Submit
+              </Button>
+            )}
           </DialogActions>
         </form>
       </Dialog>

@@ -10,7 +10,12 @@ import Prisoners from "./Prisoners";
 
 class PrisonerApp extends React.Component {
   state = {
-    prisonerPost: []
+    prisonerPost: [],
+    handleDialog: false
+  };
+
+  dialogClick = () => {
+    this.setState({ handleDialog: !this.state.handleDialog });
   };
   get postId() {
     return this.props.match.params.id;
@@ -37,11 +42,17 @@ class PrisonerApp extends React.Component {
   render() {
     return (
       <div>
-        {console.log(this.state.prisonerPost)}
-        <PrisonerDialogForm postId={this.postId} />
+        <PrisonerDialogForm
+          postId={this.postId}
+          handleDialog={this.handleDialog}
+          dialogClick={this.dialogClick}
+          dialog={this.state.handleDialog}
+        />
         <Prisoners
           prisonerPost={this.state.prisonerPost}
           postId={this.postId}
+          handleDialog={this.handleDialog}
+          dialogClick={this.dialogClick}
         />
       </div>
     );

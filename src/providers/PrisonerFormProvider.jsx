@@ -1,5 +1,6 @@
 import React, { useState, createContext } from "react";
-
+export const PrisonerProfileIdContext = createContext();
+export const PrisonerEditContext = createContext();
 export const PrisonerNameContext = createContext();
 export const PrisonerAgeContext = createContext();
 export const PrisonerGenderContext = createContext();
@@ -51,6 +52,8 @@ export const FourDuty3Context = createContext();
 export const FourDuty4Context = createContext();
 
 export const PrisonerFormProvider = props => {
+  const [prisonerProfileId, setPrisonerProfileId] = useState(null);
+  const [prisonerEdit, setPrisonerEdit] = useState(false);
   const [prisonerName, setPrisonerName] = useState("");
   const [prisonerAge, setPrisonerAge] = useState("");
   const [prisonerGender, setPrisonerGender] = useState("");
@@ -100,6 +103,15 @@ export const PrisonerFormProvider = props => {
   const [fourDuty2, setFourDuty2] = useState("");
   const [fourDuty3, setFourDuty3] = useState("");
   const [fourDuty4, setFourDuty4] = useState("");
+  const prisonerProfileIdContext = {
+    prisonerProfileId,
+    setPrisonerProfileId
+  };
+
+  const prisonerEditContext = {
+    prisonerEdit,
+    setPrisonerEdit
+  };
 
   const prisonerNameContext = {
     prisonerName,
@@ -308,226 +320,244 @@ export const PrisonerFormProvider = props => {
   const { children } = props;
 
   return (
-    <FourDuty4Context.Provider value={fourDuty4Context}>
-      <FourDuty3Context.Provider value={fourDuty3Context}>
-        <FourDuty2Context.Provider value={fourDuty2Context}>
-          <FourDuty1Context.Provider value={fourDuty1Context}>
-            <FourStateContext.Provider value={fourStateContext}>
-              <FourCityContext.Provider value={fourCityContext}>
-                <FourEndDateContext.Provider value={fourEndDateContext}>
-                  <FourStartDateContext.Provider value={fourStartDateContext}>
-                    <FourPositionContext.Provider value={fourPositionContext}>
-                      <FourEmployerContext.Provider value={fourEmployerContext}>
-                        <ThreeDuty4Context.Provider value={threeDuty4Context}>
-                          <ThreeDuty3Context.Provider value={threeDuty3Context}>
-                            <ThreeDuty2Context.Provider
-                              value={threeDuty2Context}
+    <PrisonerProfileIdContext.Provider value={prisonerProfileIdContext}>
+      <PrisonerEditContext.Provider value={prisonerEditContext}>
+        <FourDuty4Context.Provider value={fourDuty4Context}>
+          <FourDuty3Context.Provider value={fourDuty3Context}>
+            <FourDuty2Context.Provider value={fourDuty2Context}>
+              <FourDuty1Context.Provider value={fourDuty1Context}>
+                <FourStateContext.Provider value={fourStateContext}>
+                  <FourCityContext.Provider value={fourCityContext}>
+                    <FourEndDateContext.Provider value={fourEndDateContext}>
+                      <FourStartDateContext.Provider
+                        value={fourStartDateContext}
+                      >
+                        <FourPositionContext.Provider
+                          value={fourPositionContext}
+                        >
+                          <FourEmployerContext.Provider
+                            value={fourEmployerContext}
+                          >
+                            <ThreeDuty4Context.Provider
+                              value={threeDuty4Context}
                             >
-                              <ThreeDuty1Context.Provider
-                                value={threeDuty1Context}
+                              <ThreeDuty3Context.Provider
+                                value={threeDuty3Context}
                               >
-                                <ThreeStateContext.Provider
-                                  value={threeStateContext}
+                                <ThreeDuty2Context.Provider
+                                  value={threeDuty2Context}
                                 >
-                                  <ThreeCityContext.Provider
-                                    value={threeCityContext}
+                                  <ThreeDuty1Context.Provider
+                                    value={threeDuty1Context}
                                   >
-                                    <ThreeEndDateContext.Provider
-                                      value={threeEndDateContext}
+                                    <ThreeStateContext.Provider
+                                      value={threeStateContext}
                                     >
-                                      <ThreeStartDateContext.Provider
-                                        value={threeStartDateContext}
+                                      <ThreeCityContext.Provider
+                                        value={threeCityContext}
                                       >
-                                        <ThreePositionContext.Provider
-                                          value={threePositionContext}
+                                        <ThreeEndDateContext.Provider
+                                          value={threeEndDateContext}
                                         >
-                                          <ThreeEmployerContext.Provider
-                                            value={threeEmployerContext}
+                                          <ThreeStartDateContext.Provider
+                                            value={threeStartDateContext}
                                           >
-                                            <TwoDuty4Context.Provider
-                                              value={twoDuty4Context}
+                                            <ThreePositionContext.Provider
+                                              value={threePositionContext}
                                             >
-                                              <TwoDuty3Context.Provider
-                                                value={twoDuty3Context}
+                                              <ThreeEmployerContext.Provider
+                                                value={threeEmployerContext}
                                               >
-                                                <TwoDuty2Context.Provider
-                                                  value={twoDuty2Context}
+                                                <TwoDuty4Context.Provider
+                                                  value={twoDuty4Context}
                                                 >
-                                                  <TwoDuty1Context.Provider
-                                                    value={twoDuty1Context}
+                                                  <TwoDuty3Context.Provider
+                                                    value={twoDuty3Context}
                                                   >
-                                                    <TwoStateContext.Provider
-                                                      value={twoStateContext}
+                                                    <TwoDuty2Context.Provider
+                                                      value={twoDuty2Context}
                                                     >
-                                                      <TwoCityContext.Provider
-                                                        value={twoCityContext}
+                                                      <TwoDuty1Context.Provider
+                                                        value={twoDuty1Context}
                                                       >
-                                                        <TwoEndDateContext.Provider
+                                                        <TwoStateContext.Provider
                                                           value={
-                                                            twoEndDateContext
+                                                            twoStateContext
                                                           }
                                                         >
-                                                          <TwoStartDateContext.Provider
+                                                          <TwoCityContext.Provider
                                                             value={
-                                                              twoStartDateContext
+                                                              twoCityContext
                                                             }
                                                           >
-                                                            <TwoPositionContext.Provider
+                                                            <TwoEndDateContext.Provider
                                                               value={
-                                                                twoPositionContext
+                                                                twoEndDateContext
                                                               }
                                                             >
-                                                              <TwoEmployerContext.Provider
+                                                              <TwoStartDateContext.Provider
                                                                 value={
-                                                                  twoEmployerContext
+                                                                  twoStartDateContext
                                                                 }
                                                               >
-                                                                <OneDuty4Context.Provider
+                                                                <TwoPositionContext.Provider
                                                                   value={
-                                                                    oneDuty4Context
+                                                                    twoPositionContext
                                                                   }
                                                                 >
-                                                                  <OneDuty3Context.Provider
+                                                                  <TwoEmployerContext.Provider
                                                                     value={
-                                                                      oneDuty3Context
+                                                                      twoEmployerContext
                                                                     }
                                                                   >
-                                                                    <OneDuty2Context.Provider
+                                                                    <OneDuty4Context.Provider
                                                                       value={
-                                                                        oneDuty2Context
+                                                                        oneDuty4Context
                                                                       }
                                                                     >
-                                                                      <OneDuty1Context.Provider
+                                                                      <OneDuty3Context.Provider
                                                                         value={
-                                                                          oneDuty1Context
+                                                                          oneDuty3Context
                                                                         }
                                                                       >
-                                                                        <OneStateContext.Provider
+                                                                        <OneDuty2Context.Provider
                                                                           value={
-                                                                            oneStateContext
+                                                                            oneDuty2Context
                                                                           }
                                                                         >
-                                                                          <OneCityContext.Provider
+                                                                          <OneDuty1Context.Provider
                                                                             value={
-                                                                              oneCityContext
+                                                                              oneDuty1Context
                                                                             }
                                                                           >
-                                                                            <OneEndDateContext.Provider
+                                                                            <OneStateContext.Provider
                                                                               value={
-                                                                                oneEndDateContext
+                                                                                oneStateContext
                                                                               }
                                                                             >
-                                                                              <OneStartDateContext.Provider
+                                                                              <OneCityContext.Provider
                                                                                 value={
-                                                                                  oneStartDateContext
+                                                                                  oneCityContext
                                                                                 }
                                                                               >
-                                                                                <OnePositionContext.Provider
+                                                                                <OneEndDateContext.Provider
                                                                                   value={
-                                                                                    onePositionContext
+                                                                                    oneEndDateContext
                                                                                   }
                                                                                 >
-                                                                                  <OneEmployerContext.Provider
+                                                                                  <OneStartDateContext.Provider
                                                                                     value={
-                                                                                      oneEmployerContext
+                                                                                      oneStartDateContext
                                                                                     }
                                                                                   >
-                                                                                    <Skill4Context.Provider
+                                                                                    <OnePositionContext.Provider
                                                                                       value={
-                                                                                        skill4Context
+                                                                                        onePositionContext
                                                                                       }
                                                                                     >
-                                                                                      <Skill3Context.Provider
+                                                                                      <OneEmployerContext.Provider
                                                                                         value={
-                                                                                          skill3Context
+                                                                                          oneEmployerContext
                                                                                         }
                                                                                       >
-                                                                                        <Skill2Context.Provider
+                                                                                        <Skill4Context.Provider
                                                                                           value={
-                                                                                            skill2Context
+                                                                                            skill4Context
                                                                                           }
                                                                                         >
-                                                                                          <Skill1Context.Provider
+                                                                                          <Skill3Context.Provider
                                                                                             value={
-                                                                                              skill1Context
+                                                                                              skill3Context
                                                                                             }
                                                                                           >
-                                                                                            <SummaryContext.Provider
+                                                                                            <Skill2Context.Provider
                                                                                               value={
-                                                                                                summaryContext
+                                                                                                skill2Context
                                                                                               }
                                                                                             >
-                                                                                              <PrisonerPermissionsContext.Provider
+                                                                                              <Skill1Context.Provider
                                                                                                 value={
-                                                                                                  prisonerPermissionsContext
+                                                                                                  skill1Context
                                                                                                 }
                                                                                               >
-                                                                                                <PrisonerGenderContext.Provider
+                                                                                                <SummaryContext.Provider
                                                                                                   value={
-                                                                                                    prisonerGenderContext
+                                                                                                    summaryContext
                                                                                                   }
                                                                                                 >
-                                                                                                  <PrisonerAgeContext.Provider
+                                                                                                  <PrisonerPermissionsContext.Provider
                                                                                                     value={
-                                                                                                      prisonerAgeContext
+                                                                                                      prisonerPermissionsContext
                                                                                                     }
                                                                                                   >
-                                                                                                    <PrisonerNameContext.Provider
+                                                                                                    <PrisonerGenderContext.Provider
                                                                                                       value={
-                                                                                                        prisonerNameContext
+                                                                                                        prisonerGenderContext
                                                                                                       }
                                                                                                     >
-                                                                                                      {
-                                                                                                        children
-                                                                                                      }
-                                                                                                    </PrisonerNameContext.Provider>
-                                                                                                  </PrisonerAgeContext.Provider>
-                                                                                                </PrisonerGenderContext.Provider>
-                                                                                              </PrisonerPermissionsContext.Provider>
-                                                                                            </SummaryContext.Provider>
-                                                                                          </Skill1Context.Provider>
-                                                                                        </Skill2Context.Provider>
-                                                                                      </Skill3Context.Provider>
-                                                                                    </Skill4Context.Provider>
-                                                                                  </OneEmployerContext.Provider>
-                                                                                </OnePositionContext.Provider>
-                                                                              </OneStartDateContext.Provider>
-                                                                            </OneEndDateContext.Provider>
-                                                                          </OneCityContext.Provider>
-                                                                        </OneStateContext.Provider>
-                                                                      </OneDuty1Context.Provider>
-                                                                    </OneDuty2Context.Provider>
-                                                                  </OneDuty3Context.Provider>
-                                                                </OneDuty4Context.Provider>
-                                                              </TwoEmployerContext.Provider>
-                                                            </TwoPositionContext.Provider>
-                                                          </TwoStartDateContext.Provider>
-                                                        </TwoEndDateContext.Provider>
-                                                      </TwoCityContext.Provider>
-                                                    </TwoStateContext.Provider>
-                                                  </TwoDuty1Context.Provider>
-                                                </TwoDuty2Context.Provider>
-                                              </TwoDuty3Context.Provider>
-                                            </TwoDuty4Context.Provider>
-                                          </ThreeEmployerContext.Provider>
-                                        </ThreePositionContext.Provider>
-                                      </ThreeStartDateContext.Provider>
-                                    </ThreeEndDateContext.Provider>
-                                  </ThreeCityContext.Provider>
-                                </ThreeStateContext.Provider>
-                              </ThreeDuty1Context.Provider>
-                            </ThreeDuty2Context.Provider>
-                          </ThreeDuty3Context.Provider>
-                        </ThreeDuty4Context.Provider>
-                      </FourEmployerContext.Provider>
-                    </FourPositionContext.Provider>
-                  </FourStartDateContext.Provider>
-                </FourEndDateContext.Provider>
-              </FourCityContext.Provider>
-            </FourStateContext.Provider>
-          </FourDuty1Context.Provider>
-        </FourDuty2Context.Provider>
-      </FourDuty3Context.Provider>
-    </FourDuty4Context.Provider>
+                                                                                                      <PrisonerAgeContext.Provider
+                                                                                                        value={
+                                                                                                          prisonerAgeContext
+                                                                                                        }
+                                                                                                      >
+                                                                                                        <PrisonerNameContext.Provider
+                                                                                                          value={
+                                                                                                            prisonerNameContext
+                                                                                                          }
+                                                                                                        >
+                                                                                                          {
+                                                                                                            children
+                                                                                                          }
+                                                                                                        </PrisonerNameContext.Provider>
+                                                                                                      </PrisonerAgeContext.Provider>
+                                                                                                    </PrisonerGenderContext.Provider>
+                                                                                                  </PrisonerPermissionsContext.Provider>
+                                                                                                </SummaryContext.Provider>
+                                                                                              </Skill1Context.Provider>
+                                                                                            </Skill2Context.Provider>
+                                                                                          </Skill3Context.Provider>
+                                                                                        </Skill4Context.Provider>
+                                                                                      </OneEmployerContext.Provider>
+                                                                                    </OnePositionContext.Provider>
+                                                                                  </OneStartDateContext.Provider>
+                                                                                </OneEndDateContext.Provider>
+                                                                              </OneCityContext.Provider>
+                                                                            </OneStateContext.Provider>
+                                                                          </OneDuty1Context.Provider>
+                                                                        </OneDuty2Context.Provider>
+                                                                      </OneDuty3Context.Provider>
+                                                                    </OneDuty4Context.Provider>
+                                                                  </TwoEmployerContext.Provider>
+                                                                </TwoPositionContext.Provider>
+                                                              </TwoStartDateContext.Provider>
+                                                            </TwoEndDateContext.Provider>
+                                                          </TwoCityContext.Provider>
+                                                        </TwoStateContext.Provider>
+                                                      </TwoDuty1Context.Provider>
+                                                    </TwoDuty2Context.Provider>
+                                                  </TwoDuty3Context.Provider>
+                                                </TwoDuty4Context.Provider>
+                                              </ThreeEmployerContext.Provider>
+                                            </ThreePositionContext.Provider>
+                                          </ThreeStartDateContext.Provider>
+                                        </ThreeEndDateContext.Provider>
+                                      </ThreeCityContext.Provider>
+                                    </ThreeStateContext.Provider>
+                                  </ThreeDuty1Context.Provider>
+                                </ThreeDuty2Context.Provider>
+                              </ThreeDuty3Context.Provider>
+                            </ThreeDuty4Context.Provider>
+                          </FourEmployerContext.Provider>
+                        </FourPositionContext.Provider>
+                      </FourStartDateContext.Provider>
+                    </FourEndDateContext.Provider>
+                  </FourCityContext.Provider>
+                </FourStateContext.Provider>
+              </FourDuty1Context.Provider>
+            </FourDuty2Context.Provider>
+          </FourDuty3Context.Provider>
+        </FourDuty4Context.Provider>
+      </PrisonerEditContext.Provider>
+    </PrisonerProfileIdContext.Provider>
   );
 };
