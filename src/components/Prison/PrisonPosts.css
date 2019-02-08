@@ -4,7 +4,7 @@
 
 #prison-post-header {
   color: white;
-  background: #3f51b5;
+  background: black;
   margin: 0px;
 }
 
@@ -90,12 +90,6 @@
 .edit-icon {
   justify-self: center;
   font-size: 0.6rem;
-}
-
-.Posts {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  justify-items: center;
 }
 
 .close-icon {

@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-constructor */
 import React, { useState, useEffect } from "react";
 import PrisonerDialogForm from "./PrisonerDialogForm";
 import { collectIdsAndData } from "../../utilities";
@@ -7,8 +8,12 @@ import { withRouter } from "react-router-dom";
 import firebase from "firebase/app";
 import { async } from "@firebase/util";
 import Prisoners from "./Prisoners";
+import UserProvider from "../../providers/UserProvider";
 
 class PrisonerApp extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   state = {
     prisonerPost: [],
     handleDialog: false

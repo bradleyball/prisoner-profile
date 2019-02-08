@@ -12,6 +12,9 @@ import SignUp from "./SignUp";
 import { UserContext } from "../../providers/UserProvider";
 import { signOut } from "../../firebase";
 import Button from "@material-ui/core/Button";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { theme } from "../../theme";
+import { Link } from "react-router-dom";
 
 const styles = {
   root: {
@@ -23,6 +26,13 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20
+  },
+  link: {
+    textDecoration: "none",
+    color: "white",
+    hover: {
+      color: "white"
+    }
   }
 };
 
@@ -31,28 +41,36 @@ function NoUserNavBar(props) {
   const user = useContext(UserContext);
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-            <HomeIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            {user ? `Welcome ${user.displayName}` : "Prisoner Skills"}
-          </Typography>
-          {!user && <SignIn />}
-          {!user && <SignUp />}
-          {user && (
-            <Button color="inherit" onClick={signOut}>
-              Sign Out
-            </Button>
-          )}
-          {user && <PersonIcon />}
-        </Toolbar>
-      </AppBar>
+      <MuiThemeProvider theme={theme}>
+        <AppBar position="static">
+          <Toolbar>
+            <Link to="/" className={classes.link}>
+              <IconButton
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="Menu"
+              >
+                <HomeIcon />
+              </IconButton>
+            </Link>
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              {user ? `Welcome ${user.displayName}` : "Prisoner Skills"}
+            </Typography>
+            {!user && <SignIn />}
+            {!user && <SignUp />}
+            {user && (
+              <Button color="inherit" onClick={signOut}>
+                Sign Out
+              </Button>
+            )}
+            {user && (
+              <Link to="/prisoner-posts/:id" className={classes.link}>
+                <PersonIcon />
+              </Link>
+            )}
+          </Toolbar>
+        </AppBar>
+      </MuiThemeProvider>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 /**@jsx jsx */
+import { UserContext } from "../../providers/UserProvider";
 import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/styles";
 import classnames from "classnames";
@@ -16,13 +17,14 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { withStyles } from "@material-ui/core/styles";
 import { css, jsx } from "@emotion/core";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import "./prisoner.css";
-import { UserContext } from "../../providers/UserProvider";
+
 import {
   bagel,
   waffle,
@@ -91,26 +93,9 @@ const prisonerIcon = css`
   width: 50px;
 `;
 
-const listContainer = css`
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  justify-items: center;
-  border: 1px solid #cdcdcd;
-  border-bottom: none;
-`;
-
-const cardContainer = css`
-  display: grid;
-`;
-
-const permission = css`
-  font-size: 13px;
-  color: red;
-  text-align: center;
-`;
 const subContainer = css`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
 `;
 
 const workListContainer = css`
@@ -118,13 +103,14 @@ const workListContainer = css`
   grid-template-columns: repeat(2, 1fr);
 `;
 const item = css`
-  margin-bottom: -10px;
+  justify-self: flex-start;
   max-width: 100%;
-  font-size: 12;
+  font-size: 14;
+  padding-left: 4px;
+  padding-right: 4px;
 `;
 
 let listSection = css`
-  padding-bottom: 60px;
   margin-top: 20px;
   border: 1px solid #cdcdcd;
 `;
@@ -134,21 +120,154 @@ const listSection1 = css`
   margin-top: 20px;
   border: 1px solid #cdcdcd;
 `;
+
 const listText = css`
   width: 100%;
   max-width: 100%;
   display: block;
+  font-size: 14px;
 `;
+const cityText = css`
+  font-size: 12px;
+`;
+const xp = css`
+  font-size: 13 !important;
+  border-bottom: 1px solid black;
+`;
+
+const styles = {
+  card: {
+    maxWidth: 300
+  },
+
+  actions: {
+    display: "flex"
+  },
+
+  expandOpen: {
+    transform: "rotate(180deg)"
+  },
+  p: {
+    textAlign: "center"
+  },
+  bullet: {
+    fontSize: 20,
+    textAlign: "center"
+  },
+  avatar: {
+    height: 50,
+    width: 50
+  },
+
+  title: {
+    fontSize: 16,
+    textDecoration: "underline"
+  },
+  subheader: {
+    fontSize: 14
+  },
+  listIcon: {
+    height: 10,
+    width: 10
+  },
+  cardContent: {
+    display: "grid",
+    paddingBottom: 0,
+    paddingTop: 0
+  },
+  subTit: {
+    justifySelf: "center",
+    textDecoration: "underline",
+    marginBottom: 3,
+    fontSize: 14,
+    fontWeight: 800
+  },
+  summary: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 10,
+    textAlign: "justify",
+    border: "1px solid #CDCDCD",
+    borderBottom: "none",
+    fontSize: 14,
+    lineHeight: 1.4
+  },
+  cardHeader: {
+    borderBottom: "1px solid #CDCDCD"
+  },
+  h6: {
+    fontSize: 15
+  },
+  date: {
+    fontSize: 12
+  },
+  test: {
+    fontSize: 15
+  },
+  xp: { fontSize: 13, borderBottom: "1px solid black" },
+  xPar: {
+    display: "grid",
+    justifyItems: "center"
+  },
+  dutyPar: {
+    display: "grid",
+    justifyContent: "center",
+    lineHeight: 1,
+    marginTop: 10
+  },
+  bottomCollapse: {
+    display: "grid",
+    justifyContent: "flex-end"
+  },
+  duty: {
+    fontSize: 12,
+    paddingLeft: 5,
+    paddingRight: 5
+  },
+  listN: {
+    paddingLeft: 5,
+    paddingRight: 5
+  },
+  permissions: {
+    fontSize: 14,
+    color: "red ",
+    lineHeight: 1
+  },
+  lItem: {
+    paddingTop: 4,
+    paddingBottom: 4
+  },
+  skillText: {
+    fontSize: 14,
+    lineHeight: 1.2
+  }
+};
+
 /********************************************   FUNCTION START  ******************************* */
 const Prisoner = props => {
+  const currentUser = useContext(UserContext);
+  const user = props.user;
+  const belongsToCurrentUser = (currentUser, postAuthor) => {
+    if (!currentUser) return false;
+    return currentUser.uid === postAuthor.uid;
+  };
+
+  const marginStyle = css`
+    margin-top: 25px;
+  `;
+  !belongsToCurrentUser(currentUser, user) &&
+    css`
+      margin-top: 25px;
+    `;
   /**********************************************  State ****************************** */
 
   const [expanded, setExpanded] = React.useState(false);
   /***********************************************  Context State  ******************************** */
-  const currentUser = useContext(UserContext);
+
   const { prisonerProfileId, setPrisonerProfileId } = useContext(
     PrisonerProfileIdContext
   );
+
   const { prisonerEdit, setPrisonerEdit } = useContext(PrisonerEditContext);
   const { prisonerName, setPrisonerName } = useContext(PrisonerNameContext);
   const { prisonerAge, setPrisonerAge } = useContext(PrisonerAgeContext);
@@ -330,6 +449,7 @@ const Prisoner = props => {
         `
       : css`
           display: grid;
+          padding: 0px;
         `;
 
   let listSection =
@@ -338,9 +458,10 @@ const Prisoner = props => {
           display: none;
         `
       : css`
-          padding-bottom: 60px;
-          margin-top: 20px;
+          margin-left: 4px !important;
+          margin-right: 4px !important;
           border: 1px solid #cdcdcd;
+          padding-bottom: 20px;
         `;
 
   let listSection2 =
@@ -349,7 +470,7 @@ const Prisoner = props => {
           display: none;
         `
       : css`
-          padding-bottom: 60px;
+          padding-bottom: 20px;
           margin-top: 20px;
           border: 1px solid #cdcdcd;
         `;
@@ -360,7 +481,7 @@ const Prisoner = props => {
           display: none;
         `
       : css`
-          padding-bottom: 60px;
+          padding-bottom: 20px;
           margin-top: 20px;
           border: 1px solid #cdcdcd;
         `;
@@ -371,7 +492,7 @@ const Prisoner = props => {
           display: none;
         `
       : css`
-          padding-bottom: 60px;
+          padding-bottom: 20px;
           margin-top: 20px;
           border: 1px solid #cdcdcd;
         `;
@@ -383,7 +504,8 @@ const Prisoner = props => {
           display: none;
         `
       : css`
-          font-size: 10px;
+          font-size: 12px;
+          line-height: 1;
         `;
 
   let date3 =
@@ -393,7 +515,8 @@ const Prisoner = props => {
           display: none;
         `
       : css`
-          font-size: 10px;
+          font-size: 12px;
+          line-height: 1;
         `;
 
   let date2 =
@@ -403,7 +526,8 @@ const Prisoner = props => {
           display: none;
         `
       : css`
-          font-size: 10px;
+          font-size: 12px;
+          line-height: 1;
         `;
   let date4 =
     props.workExperience4.fourStartDate === "" ||
@@ -412,7 +536,8 @@ const Prisoner = props => {
           display: none;
         `
       : css`
-          font-size: 10px;
+          font-size: 12px;
+          line-height: 1;
         `;
 
   let comma1 =
@@ -444,239 +569,152 @@ const Prisoner = props => {
   let d1w1 =
     props.workExperience1.oneDuty1 === ""
       ? css`
-          display: none;
+          display: none !important;
         `
       : css`
-          font-size: 15px;
+          font-size: 14px;
         `;
 
   let d2w1 =
     props.workExperience1.oneDuty2 === ""
       ? css`
-          display: none;
+          display: none !important;
         `
       : css`
-          font-size: 15px;
+          font-size: 14px;
         `;
 
   let d3w1 =
     props.workExperience1.oneDuty3 === ""
       ? css`
-          display: none;
+          display: none !important;
         `
       : css`
-          font-size: 15px;
+          font-size: 14px;
         `;
 
   let d4w1 =
     props.workExperience1.oneDuty4 === ""
       ? css`
-          display: none;
+          display: none !important;
         `
       : css`
-          font-size: 15px;
+          font-size: 14px;
         `;
 
   let d1w2 =
     props.workExperience2.twoDuty1 === ""
       ? css`
-          display: none;
+          display: none !important;
         `
       : css`
-          font-size: 15px;
+          font-size: 14px;
         `;
 
   let d2w2 =
     props.workExperience2.twoDuty2 === ""
       ? css`
-          display: none;
+          display: none !important;
         `
       : css`
-          font-size: 15px;
+          font-size: 14px;
         `;
 
   let d3w2 =
     props.workExperience2.twoDuty3 === ""
       ? css`
-          display: none;
+          display: none !important;
         `
       : css`
-          font-size: 15px;
+          font-size: 14px;
         `;
 
   let d4w2 =
     props.workExperience2.twoDuty4 === ""
       ? css`
-          display: none;
+          display: none !important;
         `
       : css`
-          font-size: 15px;
+          font-size: 14px;
         `;
 
   let d1w3 =
     props.workExperience3.threeDuty1 === ""
       ? css`
-          display: none;
+          display: none !important;
         `
       : css`
-          font-size: 15px;
+          font-size: 14px;
         `;
 
   let d2w3 =
     props.workExperience3.threeDuty2 === ""
       ? css`
-          display: none;
+          display: none !important;
         `
       : css`
-          font-size: 15px;
+          font-size: 14px;
         `;
 
   let d3w3 =
     props.workExperience3.threeDuty3 === ""
       ? css`
-          display: none;
+          display: none !important;
         `
       : css`
-          font-size: 15px;
+          font-size: 14px;
         `;
 
   let d4w3 =
     props.workExperience3.threeDuty4 === ""
       ? css`
-          display: none;
+          display: none !important;
         `
       : css`
-          font-size: 15px;
+          font-size: 14px;
         `;
 
   let d1w4 =
     props.workExperience4.fourDuty1 === ""
       ? css`
-          display: none;
+          display: none !important;
         `
       : css`
-          font-size: 15px;
+          font-size: 14px;
         `;
   let d2w4 =
     props.workExperience4.fourDuty2 === ""
       ? css`
-          display: none;
+          display: none !important;
         `
       : css`
-          font-size: 15px;
+          font-size: 14px;
         `;
   let d3w4 =
     props.workExperience4.fourDuty3 === ""
       ? css`
-          display: none;
+          display: none !important;
         `
       : css`
-          font-size: 15px;
+          font-size: 14px;
         `;
   let d4w4 =
     props.workExperience4.fourDuty4 === ""
       ? css`
-          display: none;
+          display: none !important;
         `
       : css`
-          font-size: 15px;
+          font-size: 14px;
         `;
   /********************************************************************** */
   /**********************************************  styles for material ui   ******************** */
-  const useStyles = makeStyles(theme => ({
-    card: {
-      maxWidth: 400
-    },
-    actions: {
-      display: "flex"
-    },
 
-    expandOpen: {
-      transform: "rotate(180deg)"
-    },
-    p: {
-      textAlign: "center"
-    },
-    bullet: {
-      fontSize: 20,
-      textAlign: "center"
-    },
-    avatar: {
-      height: 50,
-      width: 50
-    },
-
-    title: {
-      fontSize: 20,
-      textDecoration: "underline"
-    },
-    subheader: {
-      fontSize: 13
-    },
-    listIcon: {
-      height: 15,
-      width: 15
-    },
-    cardContent: {
-      display: "grid"
-    },
-    subTit: {
-      justifySelf: "center",
-      textDecoration: "underline",
-      marginBottom: 20,
-      fontSize: 18,
-      fontWeight: 800
-    },
-    summary: {
-      paddingLeft: 30,
-      paddingRight: 30,
-      paddingTop: 20,
-      textAlign: "justify",
-      border: "1px solid #CDCDCD",
-      borderBottom: "none",
-      fontSize: 13
-    },
-    cardHeader: {
-      borderBottom: "1px solid #CDCDCD"
-    },
-    h6: {
-      fontSize: 15
-    },
-    date: {
-      fontSize: 10
-    },
-    test: {
-      fontSize: 15
-    },
-    xp: {
-      borderBottom: "1px solid black"
-    },
-    xPar: {
-      display: "grid",
-      justifyItems: "center"
-    },
-    dutyPar: {
-      display: "grid",
-      justifyContent: "center",
-      lineHeight: 1
-    },
-    bottomCollapse: {
-      display: "grid",
-      justifyContent: "flex-end"
-    }
-  }));
-  const classes = useStyles();
+  const { classes } = props;
   /***************************************************************** current user function */
-
-  const user = props.user;
-  const belongsToCurrentUser = (currentUser, postAuthor) => {
-    if (!currentUser) return false;
-    return currentUser.uid === postAuthor.uid;
-  };
 
   /******************************************************* */
   return (
-    <div>
+    <div css={marginStyle}>
       {console.log(props.id)}
       {belongsToCurrentUser(currentUser, user) && (
         <div className="edit-delete-container">
@@ -693,128 +731,99 @@ const Prisoner = props => {
       )}
 
       <Card className={classes.card}>
-        {console.log(dutyCheck1(props.workExperience1).styles)}
-        <div css={cardContainer}>
-          {/********************************************** Card Header ***************/}
-          <CardHeader
-            className={classes.cardHeader}
-            avatar={
-              <Avatar
-                aria-label="Recipe"
-                className={classes.avatar}
-                sizes="large"
-              >
-                <img
-                  src={require("../Images/p.png")}
-                  alt="avatar"
-                  css={prisonerIcon}
-                />
-              </Avatar>
-            }
-            title={
-              <div css={subContainer}>
-                <Typography className={classes.title}>{`${
-                  props.generalInfo.prisonerName
-                }`}</Typography>
+        {/********************************************** Card Header ***************/}
+        <CardHeader
+          className={classes.cardHeader}
+          avatar={
+            <Avatar
+              aria-label="Recipe"
+              className={classes.avatar}
+              sizes="large"
+            >
+              <img
+                src={require("../Images/p.png")}
+                alt="avatar"
+                css={prisonerIcon}
+              />
+            </Avatar>
+          }
+          title={
+            <div css={subContainer}>
+              <Typography className={classes.title}>{`${
+                props.generalInfo.prisonerName
+              }`}</Typography>
 
-                <Typography component="p" css={permission}>
-                  {props.generalInfo.prisonerPermissions}
-                </Typography>
-              </div>
-            }
-            subheader={
               <Typography className={classes.subheader}>{`${
                 props.generalInfo.prisonerAge
-              } years old, ${props.generalInfo.prisonerGender}`}</Typography>
-            }
-          />
-
-          {/****************************************************  Summary   **********************  */}
-          <CardContent className={classes.cardContent}>
-            <div css={summaryCheck}>
-              <Typography component="p" variant="h6" className={classes.subTit}>
-                Summary
-              </Typography>
-              <Typography component="p" className={classes.summary}>
-                {props.skills.summary}
-              </Typography>
+              } year olds, ${props.generalInfo.prisonerGender}`}</Typography>
             </div>
-            <br />
-            {/*****************************************************************    Skill Section   */}
+          }
+          subheader={
+            <Typography component="p" className={classes.permissions}>
+              {props.generalInfo.prisonerPermissions}
+            </Typography>
+          }
+        />
 
-            <div css={skillCheck}>
-              <Typography variant="h6" className={classes.subTit}>
-                {" "}
-                Skills{" "}
-              </Typography>
+        {/****************************************************  Summary   **********************  */}
+        <CardContent className={classes.cardContent}>
+          <div css={summaryCheck}>
+            <Typography component="p" variant="h6" className={classes.subTit}>
+              Summary
+            </Typography>
+            <Typography component="p" className={classes.summary}>
+              {props.skills.summary}
+            </Typography>{" "}
+            {console.log(props.workExperience3.threeDuty1)}
+          </div>
 
-              <div css={listContainer}>
-                {/********************************************************************* Skill 1 */}
-                <List dense>
-                  <ListItem css={item}>
-                    <ListItemIcon dense>
-                      <img
-                        src={require("../Images/skill.png")}
-                        alt="skill icon"
-                        className={classes.listIcon}
-                      />
-                      {console.log(dutyCheck2(props.workExperience1))}
-                      <ListItemText css={listText}>
-                        {props.skills.skill1}
-                      </ListItemText>
-                    </ListItemIcon>
-                  </ListItem>
+          {/*****************************************************************    Skill Section   */}
 
-                  {/********************************************************************* Skill 2 */}
+          <Typography variant="h6" className={classes.subTit}>
+            {" "}
+            Skills{" "}
+          </Typography>
 
-                  <ListItem variant="li" css={item}>
-                    <ListItemIcon dense>
-                      <img
-                        src={require("../Images/skill.png")}
-                        alt="skill icon"
-                        className={classes.listIcon}
-                      />
-                      <ListItemText css={listText}>
-                        {props.skills.skill2}
-                      </ListItemText>
-                    </ListItemIcon>
-                  </ListItem>
+          {/********************************************************************* Skill 1 */}
+          <List dense className={classes.skillText}>
+            <ListItem variant="li" css={item} className={classes.lItem}>
+              <ListItemText className={classes.skillText}>{`- ${
+                props.skills.skill1
+              }`}</ListItemText>
+            </ListItem>
 
-                  {/********************************************************************* Skill 3 */}
+            {/********************************************************************* Skill 2 */}
 
-                  <ListItem css={item}>
-                    <ListItemIcon dense>
-                      <img
-                        src={require("../Images/skill.png")}
-                        alt="skill icon"
-                        className={classes.listIcon}
-                      />
-                      <ListItemText css={listText}>
-                        {props.skills.skill3}
-                      </ListItemText>
-                    </ListItemIcon>
-                  </ListItem>
+            <ListItem variant="li" css={item} className={classes.lItem}>
+              <ListItemText className={classes.skillText}>{`- ${
+                props.skills.skill2
+              }`}</ListItemText>
+            </ListItem>
 
-                  {/********************************************************************* Skill 4 */}
+            {/********************************************************************* Skill 3 */}
 
-                  <ListItem css={item}>
-                    <ListItemIcon dense>
-                      <img
-                        src={require("../Images/skill.png")}
-                        alt="skill icon"
-                        className={classes.listIcon}
-                      />
-                      <ListItemText css={listText}>
-                        {props.skills.skill4}
-                      </ListItemText>
-                    </ListItemIcon>
-                  </ListItem>
-                </List>
-              </div>
-            </div>
-            {/******************************************************  Expand    *********************************/}
-          </CardContent>
-        </div>
+            <ListItem variant="li" css={item} className={classes.lItem}>
+              <ListItemText className={classes.skillText}>{`- ${
+                props.skills.skill3
+              }`}</ListItemText>
+            </ListItem>
+
+            {/********************************************************************* Skill 4 */}
+
+            <ListItem
+              variant="li"
+              css={item}
+              className={`${classes.lItem} ${classes.skillText}`}
+            >
+              <ListItemText className={classes.skillText}>{`- ${
+                props.skills.skill4
+              }`}</ListItemText>
+            </ListItem>
+          </List>
+
+          {/******************************************************  Expand    *********************************/}
+        </CardContent>
+
         <div className={classes.xPar}>
           <CardActions className={classes.actions} disableActionSpacing>
             <Typography variant="h6" className={classes.xp}>
@@ -838,23 +847,26 @@ const Prisoner = props => {
             <div css={listSection}>
               <div css={workListContainer}>
                 <List dense>
-                  <ListItem>
+                  <ListItem className={classes.listN}>
                     <ListItemText
+                      className={classes.duty}
                       primary={props.workExperience1.oneEmployer}
                       secondary={props.workExperience1.onePosition}
                     />
                   </ListItem>
                 </List>
 
-                <List dense>
-                  <ListItem>
+                <List dense className={classes.listN}>
+                  <ListItem className={classes.listN}>
                     <ListItemText
+                      css={cityText}
+                      className={classes.duty}
                       primary={`${props.workExperience1.oneCity}${comma1}${
                         props.workExperience1.oneState
                       }`}
                       secondary={
-                        <Typography css={date1}>
-                          {`${props.workExperience1.oneStartDate} , ${
+                        <Typography css={date1} className={classes.duty}>
+                          {`${props.workExperience1.oneStartDate} to ${
                             props.workExperience1.oneEndDate
                           }`}
                         </Typography>
@@ -884,23 +896,26 @@ const Prisoner = props => {
             <div css={listSection2}>
               <div css={workListContainer}>
                 <List dense>
-                  <ListItem>
+                  <ListItem className={classes.listN}>
                     <ListItemText
+                      className={classes.duty}
                       primary={props.workExperience2.twoEmployer}
                       secondary={props.workExperience2.twoPosition}
                     />
                   </ListItem>
                 </List>
 
-                <List dense>
-                  <ListItem>
+                <List dense className={classes.listN}>
+                  <ListItem className={classes.listN}>
                     <ListItemText
-                      primary={`${props.workExperience2.twoCity}  ${
+                      css={cityText}
+                      className={classes.duty}
+                      primary={`${props.workExperience2.twoCity}${comma2}${
                         props.workExperience2.twoState
                       }`}
                       secondary={
-                        <Typography css={date2}>
-                          {`${props.workExperience2.twoStartDate}${comma2}${
+                        <Typography css={date2} className={classes.duty}>
+                          {`${props.workExperience2.twoStartDate} to ${
                             props.workExperience2.twoEndDate
                           }`}
                         </Typography>
@@ -930,9 +945,10 @@ const Prisoner = props => {
 
             <div css={listSection3}>
               <div css={workListContainer}>
-                <List dense>
-                  <ListItem>
+                <List dense className={classes.listN}>
+                  <ListItem className={classes.listN}>
                     <ListItemText
+                      className={classes.duty}
                       primary={props.workExperience3.threeEmployer}
                       secondary={props.workExperience3.threePosition}
                     />
@@ -940,14 +956,16 @@ const Prisoner = props => {
                 </List>
 
                 <List dense>
-                  <ListItem>
+                  <ListItem className={classes.listN}>
                     <ListItemText
+                      css={cityText}
+                      className={classes.duty}
                       primary={`${props.workExperience3.threeCity}${comma3}${
                         props.workExperience3.threeState
                       }`}
                       secondary={
-                        <Typography css={date3}>
-                          {`${props.workExperience3.threeStartDate} , ${
+                        <Typography css={date3} className={classes.duty}>
+                          {`${props.workExperience3.threeStartDate} to ${
                             props.workExperience3.threeEndDate
                           }`}
                         </Typography>
@@ -977,9 +995,10 @@ const Prisoner = props => {
 
             <div css={listSection4}>
               <div css={workListContainer}>
-                <List dense>
-                  <ListItem>
+                <List dense className={classes.listN}>
+                  <ListItem className={classes.listN}>
                     <ListItemText
+                      className={classes.duty}
                       primary={props.workExperience4.fourEmployer}
                       secondary={props.workExperience4.fourPosition}
                     />
@@ -987,14 +1006,16 @@ const Prisoner = props => {
                 </List>
 
                 <List dense>
-                  <ListItem>
+                  <ListItem className={classes.listN}>
                     <ListItemText
+                      css={cityText}
+                      className={classes.duty}
                       primary={`${props.workExperience4.fourCity}${comma4}${
                         props.workExperience4.fourState
                       }`}
                       secondary={
-                        <Typography css={date4}>
-                          {`${props.workExperience4.fourStartDate} , ${
+                        <Typography css={date4} className={classes.duty}>
+                          {`${props.workExperience4.fourStartDate} to ${
                             props.workExperience4.fourEndDate
                           }`}
                         </Typography>
@@ -1041,4 +1062,4 @@ const Prisoner = props => {
   );
 };
 
-export default Prisoner;
+export default withStyles(styles)(Prisoner);

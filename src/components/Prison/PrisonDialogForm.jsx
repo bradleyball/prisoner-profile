@@ -118,7 +118,7 @@ function PrisonDialogForm(props) {
         <div className="prison-fab-wrapper">
           <Fab
             id="prison-fab-button"
-            color="primary"
+            color="secondary"
             aria-label="Add"
             className={`${classes.fab} prison-fab-button`}
             onClick={handleClickOpen}
